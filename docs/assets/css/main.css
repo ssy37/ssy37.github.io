@@ -614,6 +614,8 @@ section,
 # Clients Section
 --------------------------------------------------------------*/
 .clients .swiper-slide img {
+  max-width: 700px;
+  height: auto;
   opacity: 0.5;
   transition: 0.3s;
   filter: grayscale(100);
