@@ -98,6 +98,83 @@
         It also establishes a data transmission framework for future labs.</p>
     </div>
 
+    <!-- prelab -->
+    <section id="portfolio-details" class="portfolio-details section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": {
+                    "delay": 5000
+                  },
+                  "slidesPerView": "auto",
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  }
+                }
+              </script>
+
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/connected_arduino.jpg" alt="">
+                    <figcaption>MAC address and UUID printed in Arduino 
+                      serial monitor after connecting</figcaption>
+                  </figure>
+                </div>
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/connected_jupyter.jpg" alt="">
+                    <figcaption>MAC address and UUID printed in Jupyter interface</figcaption>
+                  </figure>
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+              <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+                <h3>Prelab</h3>
+                <h2>Setup</h2>
+                <p>
+                  To set up my computer for Lab 1, I installed Python, created a 
+                  virtual environment, and connected to the Jupyter server. To set 
+                  up the Artemis Board, I first downloaded the provided codebase. 
+                  I then updated the Artemis MAC Address and changed the BLEService 
+                  UUID to ensure exclusive connection to my own board.
+                </p>
+                <h2>Codebase</h2>
+                <p>The provided codebase sets up a Bluetooth Low Energy (BLE) communication 
+                  channel between the computer and the Artemis board using the ArduinoBLE 
+                  library on the Artemis and a Python interface on the computer via Jupyter Labs. 
+                  In BLE communication, UUIDs differentiate data types, while BLE characteristics 
+                  handle data transmission. Commands sent from the computer are processed by the 
+                  RobotCommand class in ble_arduino.ino. The handle_command() function interprets 
+                  these commands using a switch statement to execute corresponding actions. The 
+                  EString class is used for handling character arrays, and BLECStringCharacteristic 
+                  is used to send and receive string-based commands. When transmitting data, it is 
+                  important to keep in mind that the maximum message size that can be sent via BLE
+                   is 150 bytes.</p>
+              </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
     <!-- Echo -->
     <section id="portfolio-details" class="portfolio-details section">
 
@@ -145,15 +222,437 @@
 
             <div class="col-lg-4">
                 <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Echo</h3>
+                  <h3>ECHO</h3>
                   <p>
-                    I first implemented the ECHO command, which is used to send a string 
+                    I implemented the ECHO command, which is used to send a string 
                     from the computer to the Artemis board. The Artemis board then sends an 
-                    augmented string back to the computer. For instance, if “HiHello” is sent, 
-                    the message received will be “Robot says -> HiHello”.
+                    augmented string back to the computer. For instance, if “yoooo” is sent, 
+                    the message received will be “Robot says -> yoooo”.
                   </p>
                 </div>
             </div>
+          </div>
+        </div>
+    </section>
+
+    <!-- send-3-floats -->
+    <section id="portfolio-details" class="portfolio-details section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": {
+                    "delay": 5000
+                  },
+                  "slidesPerView": "auto",
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  }
+                }
+              </script>
+
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <img src="../assets/img/lab1_img/send_3_floats_arduino.jpg" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="../assets/img/lab1_img/send_three_floats_python.jpg" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="../assets/img/lab1_img/send_three_floats_serial.jpg" alt="">
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+              <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+                <h3>SEND_THREE_FLOATS</h3>
+                <p>
+                  I implemented the SEND_THREE_FLOATS command. It is used to send three 
+                  floats to the Artemis board, which then extracts the three values.
+                </p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- get_time_millis -->
+    <section id="portfolio-details" class="portfolio-details section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": {
+                    "delay": 5000
+                  },
+                  "slidesPerView": "auto",
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  }
+                }
+              </script>
+
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/get_time_millis_code.jpg" alt="">
+                    <figcaption>Arduino code</figcaption>
+                  </figure>
+                </div>
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/get_time_millis_python.jpg" alt="">
+                    <figcaption>Python interface</figcaption>
+                  </figure>
+                </div>
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/get_time_millis_cmdtypes.jpg" alt="">
+                    <figcaption>I had to update cmd_types.py in the codebase
+                      to include the new command.
+                    </figcaption>
+                  </figure>
+                </div>
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/get_time_millis_enumtypes.jpg" alt="">
+                    <figcaption>I also had to add the new command to the enum 
+                      types in the Arduino sketch.</figcaption>
+                  </figure>
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+              <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+                <h3>GET_TIME_MILLIS</h3>
+                <p>
+                  I implemented the GET_TIME_MILLIS command, to which the Artemis must reply by
+                  writing the current time in milliseconds to the string characteristic.
+                </p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- notifcation handler -->
+    <section id="portfolio-details" class="portfolio-details section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": {
+                    "delay": 5000
+                  },
+                  "slidesPerView": "auto",
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  }
+                }
+              </script>
+
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/notif_callback.jpg" alt="">
+                    <figcaption>Notification callback function</figcaption>
+                  </figure>
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+              <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+                <h3>Notification Handler</h3>
+                <p>
+                  I set up a notification handler in Python, which will allow the computer to
+                   continuously collect data without needing to explicitly issue read commands.
+                </p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- task 5 -->
+    <section id="portfolio-details" class="portfolio-details section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": {
+                    "delay": 5000
+                  },
+                  "slidesPerView": "auto",
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  }
+                }
+              </script>
+
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/task5_arduino.jpg" alt="">
+                    <figcaption>Arduino code</figcaption>
+                  </figure>
+                </div>
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/task5_python.jpg" alt="">
+                    <figcaption>Python interface. A total of 141 messages were received 
+                      in 3s, indicating a data transfer rate of 47 messages/second.
+                    </figcaption>
+                  </figure>
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+              <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+                <h3>GET_TIME_MILLIS_3S</h3>
+                <p>
+                  I implemented the GET_TIME_MILLIS_3S command, which tells the Artemis to continuously
+                   write the current time in milliseconds to the string characteristic for 3 seconds. 
+                   The notification handler receives and processes these messages. With this method, I was able 
+                   to track the data transfer rate.
+                </p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- task 6 -->
+    <section id="portfolio-details" class="portfolio-details section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": {
+                    "delay": 5000
+                  },
+                  "slidesPerView": "auto",
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  }
+                }
+              </script>
+
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/task6_arduino.jpg" alt="">
+                    <figcaption>Arduino code</figcaption>
+                  </figure>
+                </div>
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/task6_global_variables.jpg" alt="">
+                    <figcaption>I made sure to initialize the array under global scope.</figcaption>
+                  </figure>
+                </div>
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/task6_python_1.jpg" alt="">
+                    <figcaption>Python code</figcaption>
+                  </figure>
+                </div>
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/task6_post_processing.jpg" alt="">
+                    <figcaption>I realized that I had many repeated timestamps in my data. 
+                      I post-processed my received messages and obtained counts for each timestamp. I suspect 
+                      this may be due to the fact that I am using a for-loop to add timestamps to a global array 
+                      before attempting to send the data, and the for-loop executes many times per millisecond.
+                    </figcaption>
+                  </figure>
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+              <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+                <h3>SEND_TIME_DATA</h3>
+                <p>
+                  My implementation of the SEND_TIME_DATA command tells the Artemis to first 
+                  store timestamps in a global array, then loop through the array to send each entry 
+                  to the laptop as a string. In the Python interface, I stored all the received 
+                  messages in a list to check if all the data was sent. Since I was only sending one entry 
+                  at a time (each timestamp was 4 bytes in size, well under the 150-byte limit), I did not have 
+                  to worry about limiting my array size so I set it to 300.
+                  <br>
+                  However, it is important to note that my implementation would have looked very different if 
+                  I were required to send the entire array of messages at once. Since the BLE protocol used 
+                  in this lab sets a 150-byte limit on data that can be sent, my array size would be capped at 150.
+                </p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- task 7 -->
+    <section id="portfolio-details" class="portfolio-details section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": {
+                    "delay": 5000
+                  },
+                  "slidesPerView": "auto",
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  }
+                }
+              </script>
+
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/task7_arduino_updated.jpg" alt="">
+                    <figcaption>Arduino code</figcaption>
+                  </figure>
+                </div>
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/task7_notif_callback.jpg" alt="">
+                    <figcaption>Updated notification callback function 
+                      to accomodate for two separate lists.
+                    </figcaption>
+                  </figure>
+                </div>
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/task7_results_updated.jpg" alt="">
+                    <figcaption>Received messages</figcaption>
+                  </figure>
+                </div>
+
+                <div class="swiper-slide">
+                  <figure>
+                    <img src="../assets/img/lab1_img/task7_list_check.jpg" alt="">
+                    <figcaption>
+                      The length of each list is 250, which is expected.
+                    </figcaption>
+                  </figure>
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+              <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+                <h3>GET_TEMP_READINGS</h3>
+                <p>
+                  My implementation of the GET_TEMP_READINGS command tells the Artemis to first 
+                  store timestamps and temperatures in seaparte global arrays, then loop through 
+                  both arrays simultaneously to send each entry to the laptop as a string. In the 
+                  Python interface, I split the message into its time and temperature components, 
+                  and stored each in a separate list.
+                </p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
       
   </main>
 
