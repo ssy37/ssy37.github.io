@@ -614,10 +614,10 @@ section,
 # Clients Section
 --------------------------------------------------------------*/
 .clients .swiper-slide img {
-  max-width: 440px;
-  height: 336px;
+  /*max-width: 440px;
+  height: 336px;*/
   opacity: 0.5;
-  display:block;
+  /*display:block;*/
   transition: 0.3s;
   filter: grayscale(100);
 }
