@@ -88,6 +88,10 @@
             <li class="current">Lab 1</li>
           </ol>
         </nav>
+        <h2>Objective</h2>
+        <p>Lab 1A introduced the Arduino IDE and Artemis board. 
+          To get familiar with programming my board, I completed tasks like controlling the LED, 
+          reading/writing serial messages, and using the temperature sensor and microphone</p>
       </div>
     </div><!-- End Page Title -->
 
@@ -114,7 +118,7 @@
             <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
               <h3>Blink</h3>
               <p>
-                [insert blink synopsis here]
+                I used example code to blink an LED.
               </p>
             </div>
             <!--<div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
@@ -155,7 +159,8 @@
             <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
               <h3>Serial</h3>
               <p>
-                [insert serial synopsis here]
+                I used example code to test serial communication. 
+                I was careful to make sure that the code’s and serial monitor’s baud rates matched.
               </p>
             </div>
             <!--<div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
@@ -195,7 +200,10 @@
             <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
               <h3>AnalogRead</h3>
               <p>
-                chip has temp sensor on it... serial monitor outputs voltage... you can see voltage change when temp changes...
+                The Artemis board has an analog to digital converter (ADC) that converts voltage into a digital signal. 
+                Using the analogRead() function, I received data from the board’s temperature sensor. 
+                From the video, we can see that the temperature sensor works because the values being recorded rise 
+                when I heat up the chip with my hand.
               </p>
             </div>
             <!--<div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
@@ -234,7 +242,8 @@
             <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
               <h3>Microphone Output</h3>
               <p>
-                when A note is played, serial monitor outputs ~440Hz... when C note played, serial monitor outputs ~... Hz
+                I tested the board’s microphone by playing a concert A and concert C note 
+                to see if the board would pick up different frequencies. As shown in the video, it was able to.
               </p>
             </div>
             <!--<div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
