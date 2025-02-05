@@ -91,7 +91,14 @@
       </div>
     </div><!-- End Page Title -->
 
-    <!-- Prelab -->
+    <div class="container">
+      <h2>Objective</h2>
+      <p>Lab 1B sets up Bluetooth communication between the computer and Artemis board, 
+        enabling Python commands from the Jupyter server to control the board. 
+        It also establishes a data transmission framework for future labs.</p>
+    </div>
+
+    <!-- Echo -->
     <section id="portfolio-details" class="portfolio-details section">
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -120,19 +127,15 @@
                 <div class="swiper-wrapper align-items-center">
   
                   <div class="swiper-slide">
-                    <img src="assets/img/portfolio/app-1.jpg" alt="">
+                    <img src="../assets/img/lab1_img/echo_code.jpg" alt="">
                   </div>
   
                   <div class="swiper-slide">
-                    <img src="assets/img/portfolio/product-1.jpg" alt="">
+                    <img src="../assets/img/lab1_img/echo_jupyter.jpg" alt="">
                   </div>
   
                   <div class="swiper-slide">
-                    <img src="assets/img/portfolio/branding-1.jpg" alt="">
-                  </div>
-  
-                  <div class="swiper-slide">
-                    <img src="assets/img/portfolio/books-1.jpg" alt="">
+                    <img src="../assets/img/lab1_img/echo_result.jpg" alt="">
                   </div>
   
                 </div>
@@ -142,17 +145,16 @@
 
             <div class="col-lg-4">
                 <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Prelab: Setup</h3>
+                  <h3>Echo</h3>
                   <p>
-                    MAC address... venv environment... etc
-                  </p>
-                  <h3>Prelab: Codebase</h3>
-                  <p>
-                    how BLE works... how code works
+                    I first implemented the ECHO command, which is used to send a string 
+                    from the computer to the Artemis board. The Artemis board then sends an 
+                    augmented string back to the computer. For instance, if “HiHello” is sent, 
+                    the message received will be “Robot says -> HiHello”.
                   </p>
                 </div>
-              </div>
-  
+            </div>
+      
   </main>
 
   <footer id="footer" class="footer light-background">
