@@ -617,6 +617,7 @@ section,
   max-width: 440px;
   height: auto;
   opacity: 0.5;
+  display:block;
   transition: 0.3s;
   filter: grayscale(100);
 }
