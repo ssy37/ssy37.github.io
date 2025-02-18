@@ -81,7 +81,7 @@
     <!-- Page Title -->
     <div class="page-title light-background">
       <div class="container">
-        <h1>Lab 1B</h1>
+        <h1>Lab 2</h1>
         <nav class="breadcrumbs">
           <ol>
             <li><a href="../index.html">Home</a></li>
@@ -91,76 +91,14 @@
       </div>
     </div><!-- End Page Title -->
 
-    <div class="container">
-      <h2>Objective</h2>
-      <p>Lab 2 introduces the IMU. Through the tasks, data is collected via the IMU's 
-        accelerometer and gyroscope. Various filtering techniques are used to get clean, accurate signals. 
-        In this lab, we also received the physical robot and performed stunts with it.
-      </p>
-    </div>
-
-    <!-- <section class="content-section">
-      <h1 class="centered">Setup</h1>
-    
-      <h2 class="centered">AD0_VAL</h2>
-      <p class="left-aligned">
-        The code comment reads, “On the SparkFun 9DoF IMU breakout the default is 1, 
-        and when the ADR jumper is closed the value becomes 0.” According to lecture 4 code, 
-        it is the value of the last bit on the I2C address. It is 1 right now because the AD0 
-        pin doesn't have anything soldered to it.
-      </p>
-    
-      <h1 class="centered">Accelerometer</h1>
-      <p class="left-aligned">
-        After validating that the IMU was set up correctly, I collected accelerometer data 
-        to compute pitch and roll angles (recall that the accelerometer cannot detect yaw). 
-        Note that for this task, the roll/pitch conventions follow the convention in the lecture 4 
-        demo code (pitch about x, roll about y). I change this convention in the next task. To 
-        collect the data, I rotated the sensor mostly about its y-axis. Following the convention I 
-        used for this task, I expected pitch to be ~0.
-      </p>
-    
-      <h2 class="centered">Fourier and Low-Pass Filter</h2>
-      <p class="left-aligned">
-        The raw accelerometer data is very noisy; applying a low-pass filter to the data can clean 
-        up the signal. Before implementing the LPF, I needed to determine the best cutoff frequency 
-        for the filter. Using a high cutoff frequency means more high-frequency signals are kept. 
-        Noise tends to be high frequency, so having a high cutoff frequency means that you might be 
-        keeping noise. Having a very low cutoff frequency will keep only low-frequency signals, 
-        resulting in super smooth but potentially incomplete signals.
-      </p>
-    
-      <p class="left-aligned">
-        To determine the cutoff, I analyzed the signal’s frequency spectrum by performing a Fourier 
-        transform on my data.
-      </p>
-    
-      <p class="left-aligned">
-        The raw data plots show approximately 2 periods in 3 seconds, which means that the main 
-        signal’s frequency is ~0.66Hz. The frequency spectrum corroborates this, as there is spike 
-        at approximately 0.66Hz. We also see a smaller spike at approximately 1.25Hz-1.5Hz. From this, 
-        I know that the frequencies I keep need to include 0.66Hz, and should include 1.25Hz-1.5Hz as well.
-      </p>
-    
-      <div class="image-container">
-        <figure>
-          <img src="../assets/img/lab2_img/python_filter/accelerometer_fourier.jpg" alt="Fourier Transform Analysis">
-          <figcaption>
-            Fourier transform of data via scipy.fft.fft. Since DFTs are conjugate symmetric, 
-            the latter half of the transformed data was omitted.
-          </figcaption>
-        </figure>
-        <figure>
-          <img src="../assets/img/lab2_img/python_filter/accelerometer_periodogram.jpg" alt="Periodogram Analysis">
-          <figcaption>
-            Periodogram generated via scipy.signal.periodogram(). This allows us to see the spikes more clearly.
-          </figcaption>
-        </figure>
-        
-      </div>
-    </section> -->
-
     <div class="content-container">
+      <div class="text-content">
+        <h1>Objective</h1>
+        <p>Lab 2 introduces the IMU. Through the tasks, data is collected via the IMU's 
+          accelerometer and gyroscope. Various filtering techniques are used to get clean, accurate signals. 
+          In this lab, we also received the physical robot and performed stunts with it.
+        </p>
+      </div>
       <div class="text-content">
         <h1>Setup</h1>
         <h2>AD0_VAL</h2>
@@ -174,8 +112,8 @@
       </div>
     
       <div class="media-container">
-        <img src="fourier.jpg" alt="Fourier Transform">
-        <img src="periodogram.jpg" alt="Periodogram">
+        <img src="../assets/img/lab2_img/python_filter/accelerometer_fourier.jpg" alt="Fourier Transform">
+        <img src="../assets/img/lab2_img/python_filter/accelerometer_periodogram.jpg" alt="Periodogram">
       </div>
     
       <div class="video-container">
@@ -190,7 +128,7 @@
       </div>
     </div>
     
-    <div class="container">
+    <div class="text-content">
       <h2>Discussion</h2>
       <p>Lab 2 was very helpful for familiarizing myself with the IMU.... 
       </p>
