@@ -12,9 +12,9 @@
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: Roboto,  system-ui, -apple-system, "Segoe UI", "Inconsolata", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: Roboto,  sans-serif;
-  --nav-font: Roboto,  sans-serif;
+  --default-font: "Inconsolata",  system-ui, -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Inconsolata",  sans-serif;
+  --nav-font: "Inconsolata",  sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
@@ -140,42 +140,6 @@ h6 {
   .media-container img, .video-container video {
     width: 80%; /* Make images/videos take most of the screen width */
   }
-}
-
-/*CUSTOM CSS CLASSES BASIC, NO SIZE ADJUSTMENTS*/
-
-.centered {
-  text-align: center;
-}
-
-.left-aligned {
-  text-align: left;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-}
-
-.image-container img {
-  height: 300px; /* Adjust this as needed */
-  width: auto;
-}
-
-.video-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-}
-
-.video-container video {
-  height: 300px; /* Adjust as needed */
-  width: auto;
 }
 
 /* PHP Email Form Messages
