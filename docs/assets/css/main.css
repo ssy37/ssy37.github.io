@@ -87,7 +87,63 @@ h6 {
   font-family: var(--heading-font);
 }
 
-/*CUSTOM CSS CLASSES*/
+/*CUSTOM CSS CLASSES, WITH SIZE ADJUSTMENTS*/
+/* Ensure the content container is flexible */
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%; /* Adjust width dynamically */
+  max-width: 1200px; /* Prevents extreme stretching on large screens */
+  margin: auto;
+}
+
+/* Responsive text container */
+.text-content {
+  width: 80%;
+  text-align: left;
+}
+
+/* Responsive media container (images) */
+.media-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.media-container img {
+  width: 48%; /* Make images take half the container width */
+  height: auto; /* Keep aspect ratio */
+}
+
+/* Responsive video container */
+.video-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.video-container video {
+  width: 48%; /* Make videos take half the container width */
+  height: auto;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 768px) {
+  .media-container, .video-container {
+    flex-direction: column; /* Stack images/videos on top of each other */
+    align-items: center;
+  }
+
+  .media-container img, .video-container video {
+    width: 80%; /* Make images/videos take most of the screen width */
+  }
+}
+
+/*CUSTOM CSS CLASSES BASIC, NO SIZE ADJUSTMENTS*/
+
 .centered {
   text-align: center;
 }

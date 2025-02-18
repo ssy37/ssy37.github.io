@@ -99,7 +99,7 @@
       </p>
     </div>
 
-    <section class="content-section">
+    <!-- <section class="content-section">
       <h1 class="centered">Setup</h1>
     
       <h2 class="centered">AD0_VAL</h2>
@@ -158,8 +158,38 @@
         </figure>
         
       </div>
-    </section>
+    </section> -->
 
+    <div class="content-container">
+      <div class="text-content">
+        <h1>Setup</h1>
+        <h2>AD0_VAL</h2>
+        <p>The code comment reads, “On the SparkFun 9DoF IMU breakout the default is 1, and when the ADR jumper is closed the value becomes 0.” According to lecture 4 code, it is the value of the last bit on the I2C address. It is 1 right now because the AD0 pin doesn't have anything soldered to it.</p>
+    
+        <h1>Accelerometer</h1>
+        <p>After validating that the IMU was set up correctly, I collected accelerometer data to compute pitch and roll angles (recall that the accelerometer cannot detect yaw)...</p>
+    
+        <h2>Fourier and Low-Pass Filter</h2>
+        <p>The raw accelerometer data is very noisy; applying a low-pass filter to the data can clean up the signal...</p>
+      </div>
+    
+      <div class="media-container">
+        <img src="fourier.jpg" alt="Fourier Transform">
+        <img src="periodogram.jpg" alt="Periodogram">
+      </div>
+    
+      <div class="video-container">
+        <video controls>
+          <source src="video1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <video controls>
+          <source src="video2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    
     <div class="container">
       <h2>Discussion</h2>
       <p>Lab 2 was very helpful for familiarizing myself with the IMU.... 
