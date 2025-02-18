@@ -87,6 +87,29 @@ h6 {
   font-family: var(--heading-font);
 }
 
+/*CUSTOM CSS CLASSES*/
+.centered {
+  text-align: center;
+}
+
+.left-aligned {
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.image-container img {
+  height: 300px; /* Adjust this as needed */
+  width: auto;
+}
+
 /* PHP Email Form Messages
 ------------------------------*/
 .php-email-form .error-message {
