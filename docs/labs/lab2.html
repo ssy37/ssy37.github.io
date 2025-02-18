@@ -143,8 +143,20 @@
       </p>
     
       <div class="image-container">
-        <img src="../assets/img/lab2_img/python_filter/accelerometer_fourier.jpg" alt="Fourier Transform Analysis">
-        <img src="../assets/img/lab2_img/python_filter/accelerometer_periodogram.jpg" alt="Periodogram Analysis">
+        <figure>
+          <img src="../assets/img/lab2_img/python_filter/accelerometer_fourier.jpg" alt="Fourier Transform Analysis">
+          <figcaption>
+            Fourier transform of data via scipy.fft.fft. Since DFTs are conjugate symmetric, 
+            the latter half of the transformed data was omitted.
+          </figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/img/lab2_img/python_filter/accelerometer_periodogram.jpg" alt="Periodogram Analysis">
+          <figcaption>
+            Periodogram generated via scipy.signal.periodogram(). This allows us to see the spikes more clearly.
+          </figcaption>
+        </figure>
+        
       </div>
     </section>
 

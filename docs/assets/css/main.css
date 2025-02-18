@@ -110,6 +110,18 @@ h6 {
   width: auto;
 }
 
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.video-container video {
+  height: 300px; /* Adjust as needed */
+  width: auto;
+}
+
 /* PHP Email Form Messages
 ------------------------------*/
 .php-email-form .error-message {
