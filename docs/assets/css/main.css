@@ -121,7 +121,7 @@ h6 {
 }
 
 .media-container img {
-  width: 100%; /* Make images take full width of the container */
+  width: 80%; /* Make images take full width of the container */
   height: auto; /* Keep aspect ratio */
 }
 
@@ -151,7 +151,7 @@ h6 {
 }
 
 .video-container iframe {
-  width: 48%; /* Adjust as needed */
+  width: 80%; /* Adjust as needed */
   aspect-ratio: 16 / 9; /* Ensures consistent height */
   max-width: 560px; /* Limits size */
 }
