@@ -114,12 +114,13 @@ h6 {
 }
 
 .media-container img {
-  width: 48%; /* Make images take half the container width */
+  width: 60%; /* Make images take half the container width */
   height: auto; /* Keep aspect ratio */
 }
 
 .media-container figure {
   text-align: center; /* Centers the caption */
+  flex-wrap: wrap;
   width: 48%; /* Adjust width as needed */
 }
 
