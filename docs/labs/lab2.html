@@ -102,36 +102,282 @@
       <div class="text-content">
         <h1>Setup</h1>
         <h2>AD0_VAL</h2>
-        <p>The code comment reads, “On the SparkFun 9DoF IMU breakout the default is 1, and when the ADR jumper is closed the value becomes 0.” According to lecture 4 code, it is the value of the last bit on the I2C address. It is 1 right now because the AD0 pin doesn't have anything soldered to it.</p>
-    
+        <p>According to lecture 4 code, AD0_VAL is the value of the last bit on the I2C address. 
+          It is currently 1 because the AD0 pin doesn't have anything soldered to it.
+        </p>
+
+        <h2>IMU example code</h2>
+        <p>I ran the IMU’s example code to observe accelerometer and gyroscope data. The accelerometer 
+          measures in "mg" (milli-gravity), with one axis always reading ±1000 mg due to gravity, depending on 
+          orientation. The gyroscope, in "DPS" (degrees per second), is unaffected by gravity.
+        </p>
+        <div class="media-container">          
+          <iframe 
+            src="https://www.youtube.com/embed/kDlruMnDshk"
+            title="IMU example code" 
+            frameborder="0" 
+            allowfullscreen 
+            class="media-item">
+          </iframe>
+        </div>
+        
+
+        <h2>Blink LED</h2>
+        <p>
+          To help me indicate whether or not my board is running, I implemented a blink sequence 
+          in my setup function.
+        </p>
+        <div class="media-container">
+          <img src="../assets/img/lab2_img/setup_blinkLED.jpg" alt="blink LED" class="media-item">
+          
+          <iframe 
+            src="https://www.youtube.com/embed/0fKc6JQ7Z0I" 
+            title="Blink LED" 
+            frameborder="0" 
+            allowfullscreen 
+            class="media-item">
+          </iframe>
+        </div>
+      </div>
+      
+      <div class="text-content">
         <h1>Accelerometer</h1>
-        <p>After validating that the IMU was set up correctly, I collected accelerometer data to compute pitch and roll angles (recall that the accelerometer cannot detect yaw)...</p>
-    
-        <h2>Fourier and Low-Pass Filter</h2>
-        <p>The raw accelerometer data is very noisy; applying a low-pass filter to the data can clean up the signal...</p>
+        <p>
+          After validating that the IMU was set up correctly, I collected accelerometer data to compute 
+          pitch and roll angles (recall that the accelerometer cannot detect yaw).
+        </p>
+        <div class="media-container">
+          <figure>
+            <iframe 
+              src="https://www.youtube.com/embed/clrJ5XUUzwk" 
+              title="Roll" 
+              frameborder="0" 
+              allowfullscreen 
+              class="media-item">
+            </iframe>
+            <figcaption>Accelerometer roll</figcaption>
+          </figure>
+          
+          <figure>
+            <iframe 
+              src="https://www.youtube.com/embed/ab8aX_nT9qM" 
+              title="Pitch" 
+              frameborder="0" 
+              allowfullscreen 
+              class="media-item">
+            </iframe>
+            <figcaption>Accelerometer pitch</figcaption>
+          </figure>
+          
+        </div>
+
+        <h2>Two-point calibration</h2>
+        <p>
+          I noticed that the data is smoother if I do not touch the board. For the two videos above, 
+          I was applying a decent amount of force to the board to keep it in position. Thus, the data 
+          was quite noisy. The numbers are close enough to what I expect them to be, so I thought a 
+          two-point calibration was not necessary.
+        </p>
+
+        <h2>Data collection</h2>
+        <p>
+          In Python, I implemented a notification handler that would receive the accelerometer data 
+          (timestamps, pitch, roll) as a string and store it into separate lists as floats. Then, I 
+          used matplotlib to plot the data. In Arduino, I implemented a command, “GET_ACCEL”, that would 
+          collect accelerometer data for a specified duration. The command has two loops: the first computes 
+          pitch and roll angles from accelerometer data and adds them to separate arrays. The second send 
+          the data via BLE to the computer.
+        </p>
+        <div class="media-container">
+          <figure>
+            <img src="../assets/img/lab2_img/accel_notif_handler.jpg" class="media-item">
+            <figcaption>Notification handler in Python</figcaption>
+          </figure>
+          
+          <figure>
+            <img src="../assets/img/lab2_img/get_accel_overview.jpg" class="media-item">
+            <figcaption>Command used to get accelerometer data</figcaption>
+          </figure>
+        </div>
+        
+        <p>
+          For this task, I rotated the board about its x-axis so I expected pitch to be ~0. 
+          I chose to collect 3 seconds worth of data; I verified this by computing the time elapsed 
+          from the timestamps list that was sent over.
+        </p>
+
+        <h2>Fourier transform and low-pass filter</h2>
+        <p>
+          The raw accelerometer data is noisy, so a low-pass filter helps. A high cutoff keeps more noise, 
+          while a low cutoff over-smooths and may lose details. I needed to find the optimal cutoff frequency.
+        </p>
+        <div class="media-container">
+          <figure>
+            <img src="../assets/img/lab2_img/accel_raw.jpg" class="media-item">
+            <figcaption>Raw accelerometer data</figcaption>
+          </figure>
+        </div>
+        <p>
+          To determine the cutoff, I analyzed the signal’s frequency spectrum by performing a Fourier transform 
+          on my data. The raw data shows ~1Hz oscillations, confirmed by a frequency spectrum spike. Weak 
+          signals appear up to 3-4Hz, so I include these frequencies. Using α=T/(T+RC)  and f=1/(2πRC), I find 
+          α≈0.07.
+        </p>
+        <div class="media-container">
+          <figure>
+            <img src="../assets/img/lab2_img/accel_fourier.jpg" class="media-item">
+            <figcaption>Frequency spectrum for this dataset</figcaption>
+          </figure>
+          
+          <figure>
+            <img src="../assets/img/lab2_img/accel_periodogram_zoom.jpg" class="media-item">
+            <figcaption>Periodogram generated using scipy.signal.periodogram()</figcaption>
+          </figure>
+        </div>
+
+        <p>
+          I added the LPF code to my GET_ACCEL command. The updated code and filtered signal are shown:
+        </p>
+        <div class="media-container">
+          <figure>
+            <img src="../assets/img/lab2_img/accel_collect_loop.jpg" class="media-item">
+            <figcaption>Data collection loop in GET_ACCEL</figcaption>
+          </figure>
+          
+          <figure>
+            <img src="../assets/img/lab2_img/accel_data_lpf.jpg" class="media-item">
+            <figcaption>Filtered signal with original</figcaption>
+          </figure>
+        </div>
+
+        <p>
+          I also tested how effective the LPF would be when handling vibrational noise. I tapped the 
+          table twice while the IMU was sitting flat. The raw data from this experiment shows two 
+          main spikes. As seen in the image, the spikes and noise subside substantially after applying the LPF. 
+        </p>
+        <div class="media-container">
+          <img src="../assets/img/lab2_img/accel_vibe_lpf.jpg" class="media-item">
+        </div>
+      </div>
+
+      <div class="text-content">
+        <h1>Gyroscope</h1>
+        <p>
+          Next, I collected data from the gyroscope to compute pitch, roll, and yaw angles. The data 
+          reflects the sensor being rotated about its x-axis, so I don't expect pitch or yaw to change much.
+        </p>
+
+        <h2>Comparison to accelerometer</h2>
+        <p>
+          There are clear differences between the gyroscope and accelerometer data. Unlike the accelerometer, 
+          the gyroscope is able to detect yaw by sensing acceleration about the z-axis. The gyroscope data is 
+          significantly less noisy than the accelerometer data, but drift is very apparent, especially 
+          in pitch data. The gyroscope’s roll signal also seems to undershoot its actual amplitude by a 
+          significant margin.
+        </p>
+        <div class="media-container">
+          <img src="../assets/img/lab2_img/accel_gyro_compare.jpg" class="media-item">
+        </div>
+
+        <h2>Complementary filter</h2>
+        <p>
+          I implemented the complementary filter as follows: angle_c = (weight)*angle_accel + 
+          (1-weight)*angle_gyro. I collected data for 4.5 seconds to validate that my complementary 
+          filter can mitigate drift. To stay consistent with previous trials, I rotated the board about 
+          its x-axis again, so I am expecting pitch to be ~0.
+        </p>
+        <div class="media-container">
+          <figure>
+            <img src="../assets/img/lab2_img/complement_30.jpg" class="media-item">
+            <figcaption>Weight = 0.3</figcaption>
+          </figure>
+          
+          <figure>
+            <img src="../assets/img/lab2_img/complement_50.jpg" class="media-item">
+            <figcaption>Weight = 0.5</figcaption>
+          </figure>
+
+          <figure>
+            <img src="../assets/img/lab2_img/complement_80.jpg" class="media-item">
+            <figcaption>Weight = 0.8</figcaption>
+          </figure>
+        </div>
+        <p>
+          I also tested to see if the complementary filter could mitigate quick vibrations by tapping 
+          on the table while the board laid flat.
+        </p>
+        <div class="media-container">
+          <figure>
+            <img src="../assets/img/lab2_img/complement_30_vibe.jpg" class="media-item">
+            <figcaption>Weight = 0.3</figcaption>
+          </figure>
+          
+          <figure>
+            <img src="../assets/img/lab2_img/complement_50_vibe.jpg" class="media-item">
+            <figcaption>Weight = 0.5</figcaption>
+          </figure>
+
+          <figure>
+            <img src="../assets/img/lab2_img/complement_80_vibe.jpg" class="media-item">
+            <figcaption>Weight = 0.8</figcaption>
+          </figure>
+          <p>From the plots generated, a weight of 0.5 is a good choice.</p>
+        </div>
+      </div>
+
+      <div class="text-content">
+        <h1>Sampling data</h1>
+        <p>
+          I stored gyroscope and accelerometer data in separate arrays. When sending data, 
+          I loop through the arrays, combine each entry with a timestamp into a string, and write to 
+          the string characteristic. Keeping them separate simplifies looping, data combination, and 
+          debugging. For previous tasks, I computed pitch and roll angles in the same loop but stored 
+          them separately for the same reasons.
+        </p>
+        <div class="media-container">
+          <figure>
+            <img src="../assets/img/lab2_img/stream_data_collect_loop.jpg" class="media-item">
+            <figcaption>Data collection loop</figcaption>
+          </figure>
+          
+          <figure>
+            <img src="../assets/img/lab2_img/stream_data_arrays.jpg" class="media-item">
+            <figcaption>Data arrays used in the lab</figcaption>
+          </figure>
+        </div>
+        <p>
+          I needed a space-efficient data type since BLE limits me to 150 bytes per transfer. 
+          Strings were too large, and unsigned longs couldn’t store negative values. Between floats 
+          and doubles, floats take less space, so I chose floats.
+        </p>
+        <br>
+        <p>I implemented a STREAM_DATA command to collect raw IMU data. I was able to collect 5 
+          seconds of data at ~300Hz. For previous tasks, I observed a similar sampling rate.
+        </p>
+        <div class="media-container">
+          <figure>
+            <img src="../assets/img/lab2_img/stream_data_python.jpg" class="media-item">
+            <figcaption>Computed sampling time and rate</figcaption>
+          </figure>
+        </div>
+        <p>
+          I used float arrays of 1600 (6.4kB each). At 300Hz sampling, this stores 5.28s of data. 
+          With 384kB RAM, the Artemis can hold up to 316.8s, though some RAM is needed for variables.
+        </p>
+      </div>
+
+      <div class="text-content">
+        <h1>Stunts</h1>
+        <p></p>
       </div>
     
-      <div class="media-container">
-        <img src="../assets/img/lab2_img/python_filter/accelerometer_fourier.jpg" alt="Fourier Transform">
-        <img src="../assets/img/lab2_img/python_filter/accelerometer_periodogram.jpg" alt="Periodogram">
+      
+      <div class="text-content">
+        <h1>Discussion and acknowledgements</h1>
+        <p>
+          Lab 2 was very helpful for familiarizing myself with the IMU.... 
+        </p>
       </div>
-    
-      <div class="video-container">
-        <video controls>
-          <source src="video1.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <video controls>
-          <source src="video2.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-    </div>
-    
-    <div class="text-content">
-      <h2>Discussion</h2>
-      <p>Lab 2 was very helpful for familiarizing myself with the IMU.... 
-      </p>
     </div>
 
   </main>

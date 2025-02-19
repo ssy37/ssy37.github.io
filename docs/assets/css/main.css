@@ -104,17 +104,25 @@ h6 {
   text-align: left;
 }
 
-/* Responsive media container (images) */
+/* Responsive media container*/
 .media-container {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
+  justify-content: center; /* Centers items */
+  gap: 10px; /* Space between image and video */
+  flex-wrap: wrap; /* Wraps to next line if screen is small */
+  align-items: stretch; /* Makes sure both elements stretch to the same height */
 }
 
 .media-container img {
   width: 48%; /* Make images take half the container width */
   height: auto; /* Keep aspect ratio */
+}
+
+.media-item {
+  width: 48%; /* Adjust as needed */
+  aspect-ratio: 16 / 9; /* Maintains consistent proportions */
+  object-fit: cover; /* Ensures image fills its container without distortion */
+  max-width: 560px; /* Prevents excessive stretching */
 }
 
 /* Responsive video container */
@@ -128,6 +136,12 @@ h6 {
 .video-container video {
   width: 48%; /* Make videos take half the container width */
   height: auto;
+}
+
+.video-container iframe {
+  width: 48%; /* Adjust as needed */
+  aspect-ratio: 16 / 9; /* Ensures consistent height */
+  max-width: 560px; /* Limits size */
 }
 
 /* Responsive adjustments for small screens */
