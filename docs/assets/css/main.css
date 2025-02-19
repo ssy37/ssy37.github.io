@@ -118,6 +118,11 @@ h6 {
   height: auto; /* Keep aspect ratio */
 }
 
+.media-container figure {
+  text-align: center; /* Centers the caption */
+  width: 48%; /* Adjust width as needed */
+}
+
 .media-item {
   width: 48%; /* Adjust as needed */
   /*aspect-ratio: 16 / 9;  Maintains consistent proportions */
