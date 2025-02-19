@@ -147,7 +147,7 @@
           pitch and roll angles (recall that the accelerometer cannot detect yaw).
         </p>
         <div class="media-container">
-          <figure>
+          <figure class="media-item">
             <iframe 
               src="https://www.youtube.com/embed/clrJ5XUUzwk" 
               title="Roll" 
@@ -189,12 +189,12 @@
           the data via BLE to the computer.
         </p>
         <div class="media-container">
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/accel_notif_handler.jpg" class="media-item">
             <figcaption>Notification handler in Python</figcaption>
           </figure>
           
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/get_accel_overview.jpg" class="media-item">
             <figcaption>Command used to get accelerometer data</figcaption>
           </figure>
@@ -212,7 +212,7 @@
           while a low cutoff over-smooths and may lose details. I needed to find the optimal cutoff frequency.
         </p>
         <div class="media-container">
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/accel_raw.jpg" class="media-item">
             <figcaption>Raw accelerometer data</figcaption>
           </figure>
@@ -224,12 +224,12 @@
           α≈0.07.
         </p>
         <div class="media-container">
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/accel_fourier.jpg" class="media-item">
             <figcaption>Frequency spectrum for this dataset</figcaption>
           </figure>
           
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/accel_periodogram_zoom.jpg" class="media-item">
             <figcaption>Periodogram generated using scipy.signal.periodogram()</figcaption>
           </figure>
@@ -239,12 +239,12 @@
           I added the LPF code to my GET_ACCEL command. The updated code and filtered signal are shown:
         </p>
         <div class="media-container">
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/accel_collect_loop.jpg" class="media-item">
             <figcaption>Data collection loop in GET_ACCEL</figcaption>
           </figure>
           
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/accel_data_lpf.jpg" class="media-item">
             <figcaption>Filtered signal with original</figcaption>
           </figure>
@@ -287,17 +287,17 @@
           its x-axis again, so I am expecting pitch to be ~0.
         </p>
         <div class="media-container">
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/complement_30.jpg" class="media-item">
             <figcaption>Weight = 0.3</figcaption>
           </figure>
           
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/complement_50.jpg" class="media-item">
             <figcaption>Weight = 0.5</figcaption>
           </figure>
 
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/complement_80.jpg" class="media-item">
             <figcaption>Weight = 0.8</figcaption>
           </figure>
@@ -307,17 +307,17 @@
           on the table while the board laid flat.
         </p>
         <div class="media-container">
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/complement_30_vibe.jpg" class="media-item">
             <figcaption>Weight = 0.3</figcaption>
           </figure>
           
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/complement_50_vibe.jpg" class="media-item">
             <figcaption>Weight = 0.5</figcaption>
           </figure>
 
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/complement_80_vibe.jpg" class="media-item">
             <figcaption>Weight = 0.8</figcaption>
           </figure>
@@ -335,12 +335,12 @@
           them separately for the same reasons.
         </p>
         <div class="media-container">
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/stream_data_collect_loop.jpg" class="media-item">
             <figcaption>Data collection loop</figcaption>
           </figure>
           
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/stream_data_arrays.jpg" class="media-item">
             <figcaption>Data arrays used in the lab</figcaption>
           </figure>
@@ -355,7 +355,7 @@
           seconds of data at ~300Hz. For previous tasks, I observed a similar sampling rate.
         </p>
         <div class="media-container">
-          <figure>
+          <figure class="media-item">
             <img src="../assets/img/lab2_img/stream_data_python.jpg" class="media-item">
             <figcaption>Computed sampling time and rate</figcaption>
           </figure>
