@@ -275,8 +275,9 @@
           in pitch data. The gyroscope’s roll signal also seems to undershoot its actual amplitude by a 
           significant margin.
         </p>
+        <br>
         <div class="media-container">
-          <img src="../assets/img/lab2_img/accel_gyro_compare.jpg" class="media-item">
+          <img src="../assets/img/lab2_img/accel_gyro_compare.jpg" class="media-container">
         </div>
 
         <h2>Complementary filter</h2>
@@ -286,22 +287,20 @@
           filter can mitigate drift. To stay consistent with previous trials, I rotated the board about 
           its x-axis again, so I am expecting pitch to be ~0.
         </p>
-        <div class="media-container">
-          <figure>
-            <img src="../assets/img/lab2_img/complement_30.jpg" class="media-item">
-            <figcaption>Weight = 0.3</figcaption>
-          </figure>
-          
-          <figure>
-            <img src="../assets/img/lab2_img/complement_50.jpg" class="media-item">
-            <figcaption>Weight = 0.5</figcaption>
-          </figure>
-
-          <figure>
-            <img src="../assets/img/lab2_img/complement_80.jpg" class="media-item">
-            <figcaption>Weight = 0.8</figcaption>
-          </figure>
-        </div>
+        <br>
+        <figure class="media-container">
+          <img src="../assets/img/lab2_img/complement_30.jpg" class="media-item">
+          <figcaption>Weight = 0.3</figcaption>
+        </figure>
+        <figure class="media-container">
+          <img src="../assets/img/lab2_img/complement_50.jpg" class="media-item">
+          <figcaption>Weight = 0.5</figcaption>
+        </figure>
+        <figure class="media-container">
+          <img src="../assets/img/lab2_img/complement_80.jpg" class="media-item">
+          <figcaption>Weight = 0.8</figcaption>
+        </figure>
+        <br>
         <p>
           I also tested to see if the complementary filter could mitigate quick vibrations by tapping 
           on the table while the board laid flat.
