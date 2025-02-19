@@ -108,20 +108,26 @@ h6 {
 .media-container {
   display: flex;
   justify-content: center; /* Centers items */
-  gap: 10px; /* Space between image and video */
+  gap: 10px; /* Space between image and caption */
   flex-wrap: wrap; /* Wraps to next line if screen is small */
-  align-items: stretch; /* Makes sure both elements stretch to the same height */
-}
-
-.media-container img {
-  width: 60%; /* Make images take half the container width */
-  height: auto; /* Keep aspect ratio */
 }
 
 .media-container figure {
   text-align: center; /* Centers the caption */
-  flex-wrap: wrap;
   width: 48%; /* Adjust width as needed */
+  display: flex;
+  flex-direction: column; /* Stack the image and caption vertically */
+  align-items: center; /* Center content horizontally */
+}
+
+.media-container img {
+  width: 100%; /* Make images take full width of the container */
+  height: auto; /* Keep aspect ratio */
+}
+
+.media-container figcaption {
+  display: block; /* Make the caption behave like a block-level element */
+  margin-top: 10px; /* Add space between image and caption */
 }
 
 .media-item {
