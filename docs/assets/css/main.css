@@ -130,6 +130,12 @@ h6 {
   margin-top: 10px; /* Add space between image and caption */
 }
 
+.media-container iframe {
+  width: 80%; /* Adjust as needed */
+  aspect-ratio: 16 / 9; /* Ensures consistent height */
+  max-width: 560px; /* Limits size */
+}
+
 .media-item {
   width: 48%; /* Adjust as needed */
   aspect-ratio: 16 / 10;  /*Maintains consistent proportions */
@@ -148,12 +154,6 @@ h6 {
 .video-container video {
   width: 48%; /* Make videos take half the container width */
   height: auto;
-}
-
-.video-container iframe {
-  width: 80%; /* Adjust as needed */
-  aspect-ratio: 16 / 9; /* Ensures consistent height */
-  max-width: 560px; /* Limits size */
 }
 
 /* Responsive adjustments for small screens */
