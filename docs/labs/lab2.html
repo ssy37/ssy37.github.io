@@ -211,12 +211,10 @@
           The raw accelerometer data is noisy, so a low-pass filter helps. A high cutoff keeps more noise, 
           while a low cutoff over-smooths and may lose details. I needed to find the optimal cutoff frequency.
         </p>
-        <div class="media-container">
-          <figure class="media-container">
-            <img src="../assets/img/lab2_img/accel_raw.jpg" class="media-container">
-            <figcaption>Raw accelerometer data</figcaption>
-          </figure>
-        </div>
+        <figure class="media-container">
+          <img src="../assets/img/lab2_img/accel_raw.jpg" class="media-container">
+          <figcaption>Raw accelerometer data</figcaption>
+        </figure>
         <p>
           To determine the cutoff, I analyzed the signal’s frequency spectrum by performing a Fourier transform 
           on my data. The raw data shows ~1Hz oscillations, confirmed by a frequency spectrum spike. Weak 
