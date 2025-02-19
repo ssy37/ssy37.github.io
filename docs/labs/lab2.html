@@ -117,7 +117,7 @@
             title="IMU example code" 
             frameborder="0" 
             allowfullscreen 
-            class="media-item">
+            class="media-container">
           </iframe>
         </div>
         
@@ -128,14 +128,14 @@
           in my setup function.
         </p>
         <div class="media-container">
-          <img src="../assets/img/lab2_img/setup_blinkLED.jpg" alt="blink LED" class="media-item">
+          <img src="../assets/img/lab2_img/setup_blinkLED.jpg" alt="blink LED" class="media-container">
           
           <iframe 
             src="https://www.youtube.com/embed/0fKc6JQ7Z0I" 
             title="Blink LED" 
             frameborder="0" 
             allowfullscreen 
-            class="media-item">
+            class="media-container">
           </iframe>
         </div>
       </div>
@@ -147,13 +147,13 @@
           pitch and roll angles (recall that the accelerometer cannot detect yaw).
         </p>
         <div class="media-container">
-          <figure class="media-item">
+          <figure class="media-container">
             <iframe 
               src="https://www.youtube.com/embed/clrJ5XUUzwk" 
               title="Roll" 
               frameborder="0" 
               allowfullscreen 
-              class="media-item">
+              class="media-container">
             </iframe>
             <figcaption>Accelerometer roll</figcaption>
           </figure>
@@ -164,7 +164,7 @@
               title="Pitch" 
               frameborder="0" 
               allowfullscreen 
-              class="media-item">
+              class="media-container">
             </iframe>
             <figcaption>Accelerometer pitch</figcaption>
           </figure>
@@ -189,13 +189,13 @@
           the data via BLE to the computer.
         </p>
         <div class="media-container">
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/accel_notif_handler.jpg" class="media-item">
+          <figure class="media-container">
+            <img src="../assets/img/lab2_img/accel_notif_handler.jpg" class="media-container">
             <figcaption>Notification handler in Python</figcaption>
           </figure>
           
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/get_accel_overview.jpg" class="media-item">
+          <figure class="media-container">
+            <img src="../assets/img/lab2_img/get_accel_overview.jpg" class="media-container">
             <figcaption>Command used to get accelerometer data</figcaption>
           </figure>
         </div>
@@ -212,8 +212,8 @@
           while a low cutoff over-smooths and may lose details. I needed to find the optimal cutoff frequency.
         </p>
         <div class="media-container">
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/accel_raw.jpg" class="media-item">
+          <figure class="media-container">
+            <img src="../assets/img/lab2_img/accel_raw.jpg" class="media-container">
             <figcaption>Raw accelerometer data</figcaption>
           </figure>
         </div>
@@ -224,13 +224,13 @@
           α≈0.07.
         </p>
         <div class="media-container">
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/accel_fourier.jpg" class="media-item">
+          <figure class="media-container">
+            <img src="../assets/img/lab2_img/accel_fourier.jpg" class="media-container">
             <figcaption>Frequency spectrum for this dataset</figcaption>
           </figure>
           
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/accel_periodogram_zoom.jpg" class="media-item">
+          <figure class="media-container">
+            <img src="../assets/img/lab2_img/accel_periodogram_zoom.jpg" class="media-container">
             <figcaption>Periodogram generated using scipy.signal.periodogram()</figcaption>
           </figure>
         </div>
@@ -239,13 +239,13 @@
           I added the LPF code to my GET_ACCEL command. The updated code and filtered signal are shown:
         </p>
         <div class="media-container">
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/accel_collect_loop.jpg" class="media-item">
+          <figure class="media-container">
+            <img src="../assets/img/lab2_img/accel_collect_loop.jpg" class="media-container">
             <figcaption>Data collection loop in GET_ACCEL</figcaption>
           </figure>
           
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/accel_data_lpf.jpg" class="media-item">
+          <figure class="media-container">
+            <img src="../assets/img/lab2_img/accel_data_lpf.jpg" class="media-container">
             <figcaption>Filtered signal with original</figcaption>
           </figure>
         </div>
@@ -256,9 +256,10 @@
           main spikes. As seen in the image, the spikes and noise subside substantially after applying the LPF. 
         </p>
         <div class="media-container">
-          <img src="../assets/img/lab2_img/accel_vibe_lpf.jpg" class="media-item">
+          <img src="../assets/img/lab2_img/accel_vibe_lpf.jpg">
         </div>
       </div>
+      <br>
 
       <div class="text-content">
         <h1>Gyroscope</h1>
@@ -305,23 +306,21 @@
           I also tested to see if the complementary filter could mitigate quick vibrations by tapping 
           on the table while the board laid flat.
         </p>
-        <div class="media-container">
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/complement_30_vibe.jpg" class="media-item">
-            <figcaption>Weight = 0.3</figcaption>
-          </figure>
-          
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/complement_50_vibe.jpg" class="media-item">
-            <figcaption>Weight = 0.5</figcaption>
-          </figure>
+        <figure class="media-container">
+          <img src="../assets/img/lab2_img/complement_30_vibe.jpg" class="media-container">
+          <figcaption>Weight = 0.3</figcaption>
+        </figure>
+        
+        <figure class="media-container">
+          <img src="../assets/img/lab2_img/complement_50_vibe.jpg" class="media-container">
+          <figcaption>Weight = 0.5</figcaption>
+        </figure>
 
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/complement_80_vibe.jpg" class="media-item">
-            <figcaption>Weight = 0.8</figcaption>
-          </figure>
-          <p>From the plots generated, a weight of 0.5 is a good choice.</p>
-        </div>
+        <figure class="media-container">
+          <img src="../assets/img/lab2_img/complement_80_vibe.jpg" class="media-container">
+          <figcaption>Weight = 0.8</figcaption>
+        </figure>
+        <p>From the plots generated, a weight of 0.5 is a good choice.</p>
       </div>
 
       <div class="text-content">
@@ -334,13 +333,13 @@
           them separately for the same reasons.
         </p>
         <div class="media-container">
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/stream_data_collect_loop.jpg" class="media-item">
+          <figure class="media-container">
+            <img src="../assets/img/lab2_img/stream_data_collect_loop.jpg" class="media-container">
             <figcaption>Data collection loop</figcaption>
           </figure>
           
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/stream_data_arrays.jpg" class="media-item">
+          <figure class="media-container">
+            <img src="../assets/img/lab2_img/stream_data_arrays.jpg" class="media-container">
             <figcaption>Data arrays used in the lab</figcaption>
           </figure>
         </div>
@@ -354,8 +353,8 @@
           seconds of data at ~300Hz. For previous tasks, I observed a similar sampling rate.
         </p>
         <div class="media-container">
-          <figure class="media-item">
-            <img src="../assets/img/lab2_img/stream_data_python.jpg" class="media-item">
+          <figure class="media-container">
+            <img src="../assets/img/lab2_img/stream_data_python.jpg" class="media-container">
             <figcaption>Computed sampling time and rate</figcaption>
           </figure>
         </div>
