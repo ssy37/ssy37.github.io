@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Lab 3</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: MyPortfolio
+  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
+  * Updated: Aug 08 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="portfolio-details-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid  position-relative d-flex align-items-center justify-content-between">
+
+      <a href="../index.html" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="../assets/img/logo.png" alt=""> -->
+        <h1 class="sitename">ssy37 Fast Robots</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li class="dropdown"><a href="#"><span>Labs</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="labs/lab1A.html">Lab 1A</a></li>
+              <li><a href="labs/lab1B.html">Lab 1B</a></li>
+              <li><a href="labs/lab2.html">Lab 2</a></li>
+              <li><a href="labs/lab3.html">Lab 3</a></li>
+              <li><a href="#">Lab 4</a></li>
+              <li><a href="#">Lab 5</a></li>
+              <li><a href="#">Lab 6</a></li>
+              <li><a href="#">Lab 7</a></li>
+              <li><a href="#">Lab 8</a></li>
+              <li><a href="#">Lab 9</a></li>
+              <li><a href="#">Lab 10</a></li>
+              <li><a href="#">Lab 11</a></li>
+              <li><a href="#">Lab 12</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container">
+        <h1>Lab 2</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li class="current">Lab 2</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <div class="content-container">
+      <div class="text-content">
+        <h1>Objective</h1>
+        <p>
+          In this lab, I added time-of-flight sensors to the robot to measure distances from 
+          obstacles. I focused on enhancing data sampling rate, precision, and accuracy, since 
+          these factors enable faster driving.
+          accelerometer and gyroscope. Various filtering techniques are used to get clean, accurate signals. 
+          In this lab, we also received the physical robot and performed stunts with it.
+        </p>
+      </div>
+      <div class="text-content">
+        <h1>Prelab</h1>
+        <h2>I2C sensor address</h2>
+        <p>
+          The two sensors have the exact same default address, 0x29. To avoid duplicate sensor 
+          issues at power-up, I soldered the X-SHUT pin of one of the sensors to pin 4, a digital 
+          GPIO pin, on the Artemis.
+        </p>
+        <div class="media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab3_img/i2c_address.jpg" class="media-container">
+            <figcaption>Artemis scanning for I2C address</figcaption>
+          </figure>
+
+        <h2>Sensor placement</h2>
+        <p>
+          Since the car will most likely be either driving forwards or cornering, it made sense to 
+          put the ToF sensors on the front and side of the car. With this arrangement, the sensors 
+          will miss obstacles that are behind or to the opposite side of the car. The wiring diagram, 
+          along with a messy prototype, is shown below:
+        </p>
+        <div class="media-container">          
+          <img src="../assets/img/lab3_img/bot_labeled.jpg" class="media-container">
+          <img src="../assets/img/lab3_img/wiring_diagram.jpg" class="media-container">
+        </div>
+        <p>
+          When wiring up the sensors, I used longer cables for the ToF sensors and a shorter one for the 
+          IMU. Since the ToF sensors detect obstacles, I would like more flexibility in where I place them. 
+          The IMU can detect the car’s absolute orientation regardless of how it’s placed.
+        </p>
+      </div>
+      
+      <div class="text-content">
+        <h1>Lab Tasks</h1>
+        <h2>Testing one ToF sensor</h2>
+        <p>
+          The ToF sensor can measure in short, medium or long modes. The ranges of each mode can be found in 
+          table 4 of the datasheet, shown below:
+        </p>
+        <div class="media-container">
+          <img src="../assets/img/lab3_img/tof_datasheet.jpg" class="media-container">
+        </div>
+        <p>
+          Since the car will most likely be driven under ambient light, I decided to use the short mode.
+        </p>
+        <br>
+
+        <p>
+          Next, I tested the sensor’s measurement accuracy and precision at different distances and sampling 
+          rates. The sampling rate for the ToF sensor is determined by its timing budget, or how long it takes 
+          to make one measurement, or its range time, the time delay between each measurement. For this lab, I 
+          kept the range time to 10ms and varied the timing budget.
+        </p>
+        <br>
+        <p>I set up the following data collection scheme with my friend Rachel Arena:</p>
+        <div class="media-container">
+          <img src="../assets/img/lab3_img/setup.jpg" class="media-container">
+        </div>
+        <br>
+        <p>
+          The maximum range of the ToF’s short mode under ambient light is 1.3m, which is ~54”. To test the sensor's 
+          full range, I collected 100 sensor measurements at each of 9 distances (from 6" to 54" in 6" increments). 
+          I compared data for timing budgets of 20ms, 50ms, and 80ms. In Arduino, I collected data in a loop and sent 
+          it to my laptop via BLE; in Python, I used a notification handler to store that data in lists, as done in previous labs. 
+        </p>
+        <script src="https://gist.github.com/ssy37/c42fefe18d03c6c90bd1102849a9d1d8.js"></script>
+        <br>
+        <p>My raw data is shown below:</p>
+        <div class="media-container">
+          <img src="../assets/img/lab3_img/test_one_raw_data.jpg" class="media-container">
+        </div>
+        <p>
+          I wrote a function in Python to extract the “flat” parts of my data, which correspond to the distance 
+          measurements I want.
+        </p>
+        <div class="media-container">
+          <img src="../assets/img/lab3_img/test_one_split_data.jpg" class="media-container">
+        </div>
+        <p>
+          I the plotted the means and standard deviations of the measurements for each timing budget:
+        </p>
+        <div class="media-container">
+          <img src="../assets/img/lab3_img/test_one_mean_std.jpg" class="media-container">
+        </div>
+        <p>
+          From the plots, we can see that the measurements become very imprecise (ie, high stdv) at 
+          roughly the 35” mark. It is also interesting to note that a timing budget of 50ms seems to 
+          yield the least accurate measurements. It seems that the timing budget of 80ms yields 
+          the most accurate and precise results.
+        </p>
+
+        <h2>Testing two ToF sensors</h2>
+        <p>
+          Next, I used the same setup to collect data with both ToF sensors running in parallel. 
+          The raw data, means, and standard deviations are shown below:
+        </p>
+        <div class="media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab3_img/test_two_raw_data.jpg" class="media-container">
+            <figcaption>Raw data</figcaption>
+          </figure>
+          
+          <figure class="media-container">
+            <img src="../assets/img/lab3_img/test_two_mean_std.jpg" class="media-container">
+            <figcaption>Means and standard deviations</figcaption>
+          </figure>
+        </div>
+        <p>Neither sensor seems very precise, especially after the 20" mark.</p>
+
+        <h2>ToF sensor speed</h2>
+        <p>
+          To test the limits of the ToF sensor’s measurement speed, I implemented a speed-optimized 
+          data collection loop  in Arduino.
+        </p>
+        <script src="https://gist.github.com/ssy37/e9fc96db76c87dd2336555f63f6725aa.js"></script>
+        <br>
+        <p>
+          I tried a few different timing budgets and range times. In general, the limiting factor 
+          of data collection speed is the sensor itself. As shown by the consecutive time printouts, 
+          the loop is executing faster than the sensor can retrieve new measurements.
+        </p>
+
+        <div class="media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab3_img/speed_10_20_v2.jpg" class="media-container">
+            <figcaption>20ms timing budget, 10ms range time</figcaption>
+          </figure>
+          
+          <figure class="media-container">
+            <img src="../assets/img/lab3_img/speed_50_20.jpg" class="media-container">
+            <figcaption>20ms timing budget, 50ms range time</figcaption>
+          </figure>
+
+          <figure class="media-container">
+            <img src="../assets/img/lab3_img/speed_serial_10_50.jpg" class="media-container">
+            <figcaption>50ms timing budget, 10ms range time</figcaption>
+          </figure>
+        </div>
+        <br>
+
+        <h2>ToF sensors and the IMU</h2>
+        <p>
+          To put Lab 2 and Lab 3 together, I ran both ToF sensors and the IMU in parallel to collect 
+          distance and orientation data. I combined code from previous labs to implement a data collection loop:
+        </p>
+        <script src="https://gist.github.com/ssy37/18f8ee904d31a7aa71bef063d146445b.js"></script>
+        <br>
+        <p>
+          I used a complementary filter when computing my pitch and roll angles, as this method seemed to yield 
+          the cleanest results in Lab 2.
+        </p>
+        <br>
+        <p>
+          The real-time pitch, roll, yaw, and distance measurements can be seen in the video below:
+        </p>
+        <div class="media-container">          
+          <iframe 
+            src="https://www.youtube.com/embed/FF3ZvZyRTWM"
+            title="sensors in parallel" 
+            frameborder="0" 
+            allowfullscreen 
+            class="media-container">
+          </iframe>
+        </div>
+        <br>
+        <p>
+          Finally, I post-processed my data and plotted distances and angles over time for 
+          my ToF and IMU sensor data:
+        </p>
+        <div class="media-container">
+          <img src="../assets/img/lab3_img/both_sensors.jpg" class="media-container">
+        </div>
+        <br>
+        
+      <div class="text-content">
+        <h1>Discussion and acknowledgements</h1>
+        <h2>Discussion</h2>
+        <p>
+          Lab 3 was very useful for characterizing the ToF sensors; the observations I made will 
+          come in handy for future labs. It was also exciting to see everything in previous 
+          labs come together, and see the robot be able to gather distance and orientation data.
+        </p>
+        <h2>Acknowledgements</h2>
+        <p>
+          I worked with Rachel Arena and Kelvin Resch on this lab. Rachel and I worked together to 
+          collect data and sanity-check each other’s code. Kelvin showed me some cool soldering tricks.
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+
+    <div class="container">
+      <div class="copyright text-center ">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">ssy37 Fast Robots</strong> <span>All Rights Reserved</span></p>
+      </div>
+      <div class="social-links d-flex justify-content-center">
+        <a href=""><i class="bi bi-linkedin"></i></a>
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
