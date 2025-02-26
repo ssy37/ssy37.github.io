@@ -630,7 +630,6 @@ section,
   overflow: hidden;
   width: 300px; /* Set a fixed width */
   height: 250px; /* Set a fixed height */
-  overflow: hidden; /* Prevents overflow */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -638,7 +637,7 @@ section,
 }
 
 .portfolio .portfolio-content img {
-  /* transition: 0.3s; */
+  transition: 0.3s;
   width: 100%; /* Stretches image to container width */
   height: 100%; /* Stretches image to container height */
   object-fit: cover; 
