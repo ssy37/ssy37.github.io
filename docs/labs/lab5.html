@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Lab 5</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: MyPortfolio
+  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
+  * Updated: Aug 08 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="portfolio-details-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid  position-relative d-flex align-items-center justify-content-between">
+
+      <a href="../index.html" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="../assets/img/logo.png" alt=""> -->
+        <h1 class="sitename">ssy37 Fast Robots</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li class="dropdown"><a href="#"><span>Labs</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="labs/lab1A.html">Lab 1A</a></li>
+              <li><a href="labs/lab1B.html">Lab 1B</a></li>
+              <li><a href="labs/lab2.html">Lab 2</a></li>
+              <li><a href="labs/lab3.html">Lab 3</a></li>
+              <li><a href="labs/lab4.html">Lab 4</a></li>
+              <li><a href="labs/lab5.html">Lab 5</a></li>
+              <li><a href="#">Lab 6</a></li>
+              <li><a href="#">Lab 7</a></li>
+              <li><a href="#">Lab 8</a></li>
+              <li><a href="#">Lab 9</a></li>
+              <li><a href="#">Lab 10</a></li>
+              <li><a href="#">Lab 11</a></li>
+              <li><a href="#">Lab 12</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container">
+        <h1>Lab 5</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li class="current">Lab 5
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <div class="content-container">
+      <div class="text-content">
+        <h1>Objective</h1>
+        <p>
+          This lab focuses on gaining experience with PID control.
+        </p>
+      </div>
+
+      <div class="text-content">
+        <h1>Prelab</h1>
+        <h2>Bluetooth communication setup for debugging</h2>
+        <p>
+          I implemented several BLE commands to make debugging and transmitting data over Bluetooth 
+          easier. My SET_GAINS command changes control gains without reprogramming the Artemis. My 
+          START_CONTROL and STOP_CONTROL commands raise flags that the robot continuously checks for; 
+          this allows me to start/stop the robot without having to “chase it down”.
+        </p>
+        <script src="https://gist.github.com/ssy37/56e57ac3582c16f09acf746108809748.js"></script>
+        
+        <p>
+          Similar to previous labs, I let the robot continuously measure data in its loop() function 
+          and store it in arrays. After a run, I use my send_data command to transmit the stored data 
+          to my laptop.
+        </p>
+        <div class="media-container">          
+          <img src="../assets/img/lab5_img/python_commands.jpg" class="media-container">
+        </div>
+      </div>
+      
+      <div class="text-content">
+        <h1>Lab Tasks</h1>
+        <h2>PID control</h2>
+        <p>
+          In each iteration of the loop() function, my robot measures data and computes new PID 
+          values using a compute_PID() function I implemented.
+        </p>
+        <script src="https://gist.github.com/ssy37/62cd46bb749b2d234280c4427bf60a97.js"></script>
+        
+        <p>
+          I set my PID gains to keep the PWM signal between 40 (the deadband from my previous lab) 
+          and 255 (the upper limit). Testing was done 6 feet from a wall, meaning the maximum error 
+          was 60 inches. This limited the maximum possible P-gain to 4.25. Initially, I used a 
+          P-controller with Kp = 2.9, but it resulted in over 10% overshoot, which I found unacceptable.
+        </p>
+        <div class="media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab5_img/p_control_plots_2-9.jpg" class="media-container">
+            <figcaption>P-controller with Kp=2.9</figcaption>
+          </figure>
+        </div>
+        <br>
+        <p>
+          After tuning, I made several observations: a large proportional term causes overshoot, 
+          the derivative term is extremely noisy, and the integral term has little effect unless 
+          its gain is large.
+        </p>
+        <p>
+          I implemented a low-pass filter for derivative control. By performing a DFT on a sample of derivative 
+          data, I determined a cutoff frequency of ~1.5–2 Hz. The two best-performing controllers 
+          were a PID controller with Kp = 2.5, Ki = 1, and Kd = 0.1, and a PD controller with Kp = 2.5, 
+          Ki = 0, and Kd = 0.2.
+        </p>
+        <div class="media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab5_img/pid_controller.jpg" class="media-container">
+            <figcaption>PID controller</figcaption>
+          </figure>
+
+          <figure class="media-container">
+            <img src="../assets/img/lab5_img/pd_controller.jpg" class="media-container">
+            <figcaption>PD controller</figcaption>
+          </figure>
+        </div>
+        <p>
+          I liked these controllers because they had minimal overshoot and very low steady-state error.
+           However, the robot moves slowly at 0.69 m/s, so I plan to tune it further for higher speed. 
+           Additionally, I only tested one starting distance—longer ranges may require adjustments. 
+           Moving forward, I may use only the PD controller to avoid integral wind-up.
+        </p>
+        <div class="media-container">          
+          <iframe 
+            src="https://www.youtube.com/embed/qNZ51O6fwDk"
+            title="pid 1" 
+            frameborder="0" 
+            allowfullscreen 
+            class="media-container">
+          </iframe>
+          <iframe 
+            src="https://www.youtube.com/embed/zz4xmPaJPMw"
+            title="pid 2" 
+            frameborder="0" 
+            allowfullscreen 
+            class="media-container">
+          </iframe>
+          <iframe 
+            src="https://www.youtube.com/embed/h1GvH-yYZMY"
+            title="pid 3" 
+            frameborder="0" 
+            allowfullscreen 
+            class="media-container">
+          </iframe>
+        </div>
+        <br>
+
+        <h2>Extrapolation, range, and frequency</h2>
+        <p>
+          I used the ToF’s short-range mode; according to the datasheet, the ToF’s short-range mode 
+          performs best under ambient light conditions. Since the robot operates in such conditions, 
+          this was the optimal choice. To maximize sampling speed, I set the timing budget to 20 ms, 
+          the lower limit, allowing the sensor to sample at 50 Hz. I verified this rate with the data 
+          I collected.
+        </p>
+        <div class="media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab5_img/ToF_freq.jpg" class="media-container">
+            <figcaption>ToF frequency</figcaption>
+          </figure>
+        </div>
+        <p>
+          To speed up the loop, I moved my PID computation out of the if-block that checks if ToF 
+          data is ready. To compensate for loss of data, I extrapolated distance values using the 
+          following function:
+        </p>
+        <script src="https://gist.github.com/ssy37/6910b5ea9b1bad3b75b204cffa1ad352.js"></script>
+        <p>I tested the extrapolation on a simple P-controller.</p>
+        <div class="media-container">          
+          <iframe 
+            src="https://www.youtube.com/embed/rLgH43_GG9o "
+            title="extrapolation" 
+            frameborder="0" 
+            allowfullscreen 
+            class="media-container">
+          </iframe>
+        </div>
+        <p>I was able to sample at a much higher rate, 180Hz, as shown below:</p>
+        <div class="media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab5_img/extrap_freq.jpg" class="media-container">
+            <figcaption>Extrapolation frequency</figcaption>
+          </figure>
+        </div>
+        <br>
+      </div>
+      
+      <div class="text-content">
+        <h1>Discussion and acknowledgements</h1>
+        <h2>Acknowledgements</h2>
+        <p>
+          I worked with Rachel Arena on this lab.
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+
+    <div class="container">
+      <div class="copyright text-center ">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">ssy37 Fast Robots</strong> <span>All Rights Reserved</span></p>
+      </div>
+      <div class="social-links d-flex justify-content-center">
+        <a href=""><i class="bi bi-linkedin"></i></a>
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
