@@ -114,7 +114,8 @@ h6 {
 
 .media-container figure {
   text-align: center; /* Centers the caption */
-  width: 48%; /* Adjust width as needed */
+  width: 80%; /* Adjust width as needed */
+  height:auto;
   display: flex;
   flex-direction: column; /* Stack the image and caption vertically */
   align-items: center; /* Center content horizontally */
