@@ -85,7 +85,7 @@
         <nav class="breadcrumbs">
           <ol>
             <li><a href="../index.html">Home</a></li>
-            <li class="current">Lab 6
+            <li class="current">Lab 7
             </li>
           </ol>
         </nav>
@@ -96,7 +96,8 @@
       <div class="text-content">
         <h1>Objective</h1>
         <p>
-          
+          The goal of this lab is to implement a Kalman Filter, which will interpolate data in between ToF readings
+          faster than the extrapolation in Lab 5.
         </p>
       </div>
 
@@ -129,13 +130,70 @@
           <img src="../assets/img/lab7_img/b_calculation.jpg" class="media-container">
           <img src="../assets/img/lab7_img/m_calculation.jpg" class="media-container">
         </div>
-        <p>The sampling time is 0.0202 seconds</p>
+        <p>
+          I first created my state space model by calculating the damping and mass from 
+          the data collected in the previous step. To discretize my matrices, I multiplied them by the 
+          sampling period.
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/63f1e8aa57ee7ada0046beb5083a7461.js"></script>
+        <br>
+        <p>
+          Next, I set my process noise and measurement noise matrices. For process noise, I used the equations from 
+          the lecture slides, substituting in a sampling time of .02s since the timing budget of my ToF sensor is 20ms. For 
+          measurement noise, I referenced the ToF datasheet, which states that the short-range measurement mode has a ranging error
+          of 20mm. With these parameters, sigma_1 = sigma_2 = 70.3
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/4394859fa3b398ea570a1ab3dbf2f210.js"></script>
+        <br>
+      </div>
+
+      <div class="text-content">
+        <h1>Implement KF in Python</h1>
+        <p>
+          To implement the KF in Python, I modified the function provided in lecture to be able to test different process noise and 
+          measurement noise matrices.
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/84247a80f8e290ccee074cec8b813182.js"></script>
+        <br>
+        <p>
+          Next, I tested the KF on a dataset I collected in Lab 5. For this dataset, I was sampling at 50Hz because I set the ToF timing 
+          budget to 20ms. Eventually, I want to collect distance and orientation data at roughly the same rate. I set a "desired frequency" 
+          of 180Hz, since that is the IMU sampling rate with DMP enabled (see Lab 6). I wrote a for-loop that would simulate sampling at 180Hz 
+          to test if my KF could successfully interpolate distances in between the 50Hz ToF measurements.
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/e779b841c18aa770148e47060558a195.js"></script>
+        <br>
+        <p>
+          To my surprise, the KF interpolated in between measurements surprisingly well.
+        </p>
+        <br>
+        <div class="media-container">
+          <img src="../assets/img/lab7_img/kf_nominal.jpg" class="media-container">
+        </div>
+        <br>
+        <p>
+          I then tested different process noise and measurement noise matrices to see how they would affect the KF.
+        </p>
+        <br>
+        <div class="media-container">
+          <img src="../assets/img/lab7_img/compare_variance.jpg" class="media-container">
+          <img src="../assets/img/lab7_img/compare_noise_100.jpg" class="media-container">
+          <img src="../assets/img/lab7_img/compare_noise_500.jpg" class="media-container">
+        </div>
+        <br>
+        <p>
+          From the plots, we can see that increasing process noise causes the KF to rely more on measurements, whereas 
+          increasing measurement noise causes the KF to rely more on the model.
+        </p>
       </div>
         
       <div class="text-content">
         <h1>Discussion</h1>
         <p>
-          This lab was useful for getting familiar with using the IMU for orientation control. 
         </p>
       </div>
     </div>
