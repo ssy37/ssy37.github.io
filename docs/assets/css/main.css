@@ -643,7 +643,7 @@ section,
   transition: 0.3s;
   width: 100%; /* Stretches image to container width */
   height: 100%; /* Stretches image to container height */
-  object-fit: cover; 
+  object-fit: fill; 
 }
 
 .portfolio .portfolio-content .portfolio-info {
