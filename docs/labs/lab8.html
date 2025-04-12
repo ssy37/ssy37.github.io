@@ -104,26 +104,84 @@
         <h1>Lab Tasks</h1>
         <h2>Flip</h2>
         <p>
-          I hard-coded a flip sequence using a BLE command:
+          [UPDATED 4/12/25]
+          For the flip, I used open-loop control. I sent a Bluetooth command to start the flip. I 
+          broke the flip up into several steps, and set "timers" for each:
+          <li>Drive forwards until the robot is a `target_distance` away from the wall.</li>
+          <li>Drive backwards for half a second.</li>
+          <li>Come to a stop for 0.05 seconds to initiate the flip.</li>
+          <li>Drive away from the mat.</li>
+          My code is shown below:
         </p>
         <br>
-        <script src="https://gist.github.com/ssy37/c822c93f0d5744082643ad974cd31e95.js"></script>
+        <script src="https://gist.github.com/ssy37/dc1e02479b3dc4806fa4759fb54b4729.js"></script>
+        <br>
+        <p>To weigh the robot down, I taped a bundle of 3/16" endmills to the battery compartment. 
+          To make it easier to flip the robot, I wanted to keep its center of mass higher above the ground 
+          so I flipped the robot over. That's why I tell the robot to move backwards at first. In 
+          the above snippet I also initialized my ToF sensors wrong, so my "side" sensor is actually the 
+          one in front.
+        </p>
         <br>
         <p>
-          I implemented a Kalman filter in Arduino:
+          I tried implementing a Kalman filter in Arduino, but it doesn't work yet.
+          I previously had a code snippet here, but I've since moved an updated version to the 
+          <a href="lab7.html">Lab 7 page</a>. For this lab, I re-used my `extrapolate` function from 
+          Lab 5.
         </p>
-        <br>
-        <script src="https://gist.github.com/ssy37/6ad9cce2da3b540f2acbd20e730685d8.js"></script>
         <br>
         <p>
-          [AS OF 7:57AM 4/9/25]
-          I spent a long time trying to  get the code to compile because I was initially using the wrong syntax 
-          for the matrices in Arduino. Mikayla's website from last year was very helpful in catching those bugs. The left wheels on my robot also stopped 
-          spinning (even when I ran code that previously worked), so I spent a great deal of time checking 
-          if any wires came loose, and eventually I used my friend Kelvin's robot.
-
-          I have not yet successfully gotten my robot to flip, and I am to do that in lab today.
+          Below is a video of a successful flip. At the end my robot runs off because I set the delay 
+          time to 2 seconds.
         </p>
+        <br>
+        <div class="media-container">
+          <iframe 
+            src="https://www.youtube.com/embed/cqjVwB15Knc"
+            title="good flip" 
+            frameborder="0" 
+            allowfullscreen 
+            class="media-container">
+          </iframe>
+        </div>
+        <br>
+        <p>
+          Because I hard-coded the flip sequence with delay() statements, I was only able to get data for 
+          the initial step where the robot was driving towards the wall.
+        </p>
+        <div class="media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab8_img/flip1_data.png" class="media-container">
+            <figcaption>Run towards wall</figcaption>
+          </figure>
+        </div>
+        <p>
+          I was hoping to find a "quick and dirty" way to be able to collect data in the case statement. 
+          I started writing a bunch of sequential while loops, each for one step of the flip process (I 
+          essentially tried to replace the delay statement with a while loop that was tracking time). It 
+          didn't work, but I did get this video:
+        </p>
+        <div class="media-container">
+          <iframe 
+            src="https://www.youtube.com/embed/fJKuuphA85M"
+            title="bad flip" 
+            frameborder="0" 
+            allowfullscreen 
+            class="media-container">
+          </iframe>
+        </div>
+        <p>For the sake of staying on track, I will probably leave the stunt as is and move onto Lab 9. 
+          If I have time to come back to this, I will probably try to implement the flip in the main loop 
+          and use global flags to signal when to switch to the next sequence.
+        </p>
+      </div>
+      <br>
+      <div class="text-content">
+        <h1>Acknowledgements</h1>
+        <p>I looked at Bhadra Bejoy's website from spring 2023 to get an idea of what time values 
+          to use for each step of the flip sequence.
+        </p>
+      </div>
   </main>
 
   <footer id="footer" class="footer light-background">

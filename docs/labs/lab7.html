@@ -192,8 +192,22 @@
       </div>
         
       <div class="text-content">
-        <h1>Discussion</h1>
+        <h1>Implement KF in Arduino</h1>
         <p>
+          [UPDATE 4/12]
+          Unfortunately my Kalman filter doesn't work yet. Below is the latest code snippet:
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/e0dd4a3b34cc4f4297b54f88ea2255f4.js"></script>
+        <br>
+        <p>I also neglected to take screenshots of my python plots. From print statements and my plots, 
+          I found that I am definitely calculating velocity wrong (I was getting very large negative numbers 
+          on the order of 10^3). At some point yesterday, my KF was able could follow sensor measurements quite 
+          well, but then would grossly undershoot the interpolated value. After making some edits to my velocity 
+          function and changing a few lines in my KF function, I got rid of the weird interpolated values but 
+          my sampling rate reduced to 30Hz, which is even worse than the raw ToF sampling rate.
+
+          To stay on track I'll probably need to neglect my KF for the next week but I hope to fix it soon.
         </p>
       </div>
     </div>
