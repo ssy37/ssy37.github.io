@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Lab 9</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: MyPortfolio
+  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
+  * Updated: Aug 08 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="portfolio-details-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid  position-relative d-flex align-items-center justify-content-between">
+
+      <a href="../index.html" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="../assets/img/logo.png" alt=""> -->
+        <h1 class="sitename">ssy37 Fast Robots</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li class="dropdown"><a href="#"><span>Labs</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="labs/lab1A.html">Lab 1A</a></li>
+              <li><a href="labs/lab1B.html">Lab 1B</a></li>
+              <li><a href="labs/lab2.html">Lab 2</a></li>
+              <li><a href="labs/lab3.html">Lab 3</a></li>
+              <li><a href="labs/lab4.html">Lab 4</a></li>
+              <li><a href="labs/lab5.html">Lab 5</a></li>
+              <li><a href="labs/lab6.html">Lab 6</a></li>
+              <li><a href="labs/lab7.html">Lab 7</a></li>
+              <li><a href="labs/lab8.html">Lab 8</a></li>
+              <li><a href="labs/lab9.html">Lab 9</a></li>
+              <li><a href="#">Lab 10</a></li>
+              <li><a href="#">Lab 11</a></li>
+              <li><a href="#">Lab 12</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container">
+        <h1>Lab 9</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li class="current">Lab 9
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <div class="content-container">
+      <div class="text-content">
+        <h1>Objective</h1>
+        <p>
+          The goal of this lab is to use the robot's TOF readings to create a map 
+          of a static room.
+        </p>
+      </div>
+
+      <div class="text-content">
+        <h1>Control</h1>
+        <h2>Control loop</h2>
+        <p>
+          I used the same orientation PID controller as I did in <a href="labs/lab6.html">Lab 6</a>. 
+          The robot needs to take measurements at regular intervals in a rotation. To do so, I 
+          updated my main loop so that the setpoint is incremented as soon as the robot "settles." 
+          When the robot has settled, it takes TOF measurements of its surroundings.
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/85b16882a425d745be21fd19959e039a.js"></script>
+        <br>
+        <!-- <p>The "settled" flag is changed within my PID function:</p>
+        <br>
+        <script src="https://gist.github.com/ssy37/30cd8b76d16f25d20dcb2bb048624271.js"></script>
+        <br> -->
+        <p>
+          To compute orientation, I used the IMU's built-in DMP. However, I ran into the issue of 
+          angle wrapping: when yaw reaches +-180 degrees, it will suddenly switch to -+180 degrees. To
+          handle this, I wrote an angle-unwrapping function and added a few lines to my get_IMU() function.
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/5b50d64198f60d38af845d28a431249c.js"></script>
+        <script src="https://gist.github.com/ssy37/f15a33150cf17dc66c6c4a75d658d49a.js"></script>
+        <br>
+
+        <p>
+          In Python, I send BLE commands to start control, stop control, set gains, set the increment, send 
+          data, etc. Like previous labs, I use a notification handler.
+          The configuration that gave me the best results seemed to be:
+          <li>Kp = 2, Ki = 0, Kd = 0.1 with a deadband pwm signal of 90.</li>
+          <li>Increments of 15 degreees</li>
+        </p>
+        <br>
+        <p>Below is a video of the robot spinning slowly.</p>
+        <br>
+        
+        <div class="media-container">
+          <iframe 
+            src="https://www.youtube.com/embed/WnjHyI3luyw"
+            title="slow spin" 
+            frameborder="0" 
+            allowfullscreen 
+            class="media-container">
+          </iframe>
+        </div>
+
+        <h2>Accuracy</h2>
+        <p>
+          My robot drifts slightly with each turn; the maximum drift distance appears to be about 6 inches
+          from what I can see.
+        </p>
+      </div>
+
+      <br>
+
+      <div class="text-content">
+        <h1>Read out distances</h1>
+        <p>
+          Note: it took me too long to get the robot to spin slowly. I also cooked one of the motor 
+          drivers on my own robot, so I needed to coordinate with a friend to share a 
+          robot.
+          In lab, I was only able to get points (-3,-2) and (5,-3). To demonstrate the mapping of an 
+          entire room, my friends and I set up an obstacle course on Phillips 2nd floor.
+        </p>
+        <div class="media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab9_img/obstacle_setup.jpg" class="media-container">
+            <figcaption>Lab, (5,-3)</figcaption>
+          </figure>
+        </div>
+        <br>
+        <p>
+          My TOF sensors were swapped, so the one that's labeled "side" is actually the one in front.
+          Unfortunately the side sensor seemed to be broken so I did not record any data from it.
+        </p>
+        <br>
+        <p>When post-processing the data, this was the procedure I followed: </p>
+        <ol>
+          <li>Wrap the angle so that it is compatible with the polar plot.</li>
+          <li>
+            Filter out all the "zero" measurements from the TOF data, map filtered data to corresponing
+            yaw values.
+            <ul>TOF sampling rate is low and I did not extrapolate 
+              any values. My robot spins continuously rather than stop at regular intervals, so I used yaw 
+              data for computations instead of regular angular intervals.
+            </ul>
+          </li>
+          <li>
+            Polar plot
+          </li>
+        <ol>
+        <br>
+        <p>This is my angle-wrapping function:</p>
+        <script src="https://gist.github.com/ssy37/0e7c5a0a71973a2d9d90b7154b599c10.js"></script>
+        <br>
+        <p>Below are the individual and combined plots from lab data: </p>
+        <div class="media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab9_img/bottom_left_polar_rotated.jpg" class="media-container">
+            <figcaption>Lab, (-3,-2)</figcaption>
+          </figure>
+          <figure class="media-container">
+            <img src="../assets/img/lab9_img/bottom_right_polar_rotated.jpg" class="media-container">
+            <figcaption>Lab, (5,-3)</figcaption>
+          </figure>
+        </div>
+        <br>
+      </div>
+
+      <br>
+
+      <div class="text-content">
+        <h1>Merge and plot readings</h1>
+        <p>
+          Using notation and methods I learned from MAE 2030, I computed the transformation matrices.
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/9ae08b6759cc8b3f92c2301adb6f730e.js"></script>
+        <br>
+        <div class="media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab9_img/obstacle_first_plot.jpg" class="media-container">
+            <figcaption>Lab, combined</figcaption>
+          </figure>
+          <figure class="media-container">
+            <img src="../assets/img/lab9_img/obstacle_first_plot.jpg" class="media-container">
+            <figcaption>Obstacle, combined</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="text-content">
+        <h1>Convert to line-based map</h1>
+        <p>I was able to plot the following lines for the lab dataset:</p>
+        <div class="media-container">
+          <img src="../assets/img/lab9_img/lab_lineplot.jpg">
+        </div>
+        <p>
+          I have not corrected for any drift in the above plot. If I were to do so, I would 
+          first average the points in "clusters." From observing how the robot moved, I think 
+          my error band is around +/-3 inches, so I will start by adjusting around those numbers.
+        </p>
+      </div>
+
+      <br>
+
+      <div class="text-content">
+        <h1>Acknowledgements</h1>
+        <p>
+          I referenced Aidan McNay's website for the angle-wrapping function. My friend Kelvin let me 
+          use his robot. My friends set up an obstacle course that I also used.
+        </p>
+      </div>
+  </main>
+
+  <footer id="footer" class="footer light-background">
+
+    <div class="container">
+      <div class="copyright text-center ">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">ssy37 Fast Robots</strong> <span>All Rights Reserved</span></p>
+      </div>
+      <div class="social-links d-flex justify-content-center">
+        <a href=""><i class="bi bi-linkedin"></i></a>
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
