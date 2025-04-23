@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Lab 10</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="../assets/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: MyPortfolio
+  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
+  * Updated: Aug 08 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="portfolio-details-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid  position-relative d-flex align-items-center justify-content-between">
+
+      <a href="../index.html" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="../assets/img/logo.png" alt=""> -->
+        <h1 class="sitename">ssy37 Fast Robots</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li class="dropdown"><a href="#"><span>Labs</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="labs/lab1A.html">Lab 1A</a></li>
+              <li><a href="labs/lab1B.html">Lab 1B</a></li>
+              <li><a href="labs/lab2.html">Lab 2</a></li>
+              <li><a href="labs/lab3.html">Lab 3</a></li>
+              <li><a href="labs/lab4.html">Lab 4</a></li>
+              <li><a href="labs/lab5.html">Lab 5</a></li>
+              <li><a href="labs/lab6.html">Lab 6</a></li>
+              <li><a href="labs/lab7.html">Lab 7</a></li>
+              <li><a href="labs/lab8.html">Lab 8</a></li>
+              <li><a href="labs/lab9.html">Lab 9</a></li>
+              <li><a href="labs/lab10.html">Lab 10</a></li>
+              <li><a href="#">Lab 11</a></li>
+              <li><a href="#">Lab 12</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container">
+        <h1>Lab 10</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li class="current">Lab 10
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <div class="content-container">
+      <div class="text-content">
+        <h1>Objective</h1>
+        <p>
+          The goal of this lab was to use the Bayes Filter to implement grid localization on 
+          the virtual robot.
+        </p>
+      </div>
+
+      <div class="text-content">
+        <h1>Helper functions</h1>
+        <h2>Compute control</h2>
+        <p>
+          To characterize the robot's motion we use the odometry model, which splits up 
+          robot motion into three steps:
+          <ul>
+            <li>Robot rotates by delta_rot_1 and points towards destination</li>
+            <li>Robot translates delta_trans along straight line to destination</li>
+            <li>Robot rotates by delta_rot_2 to correct its orientation.</li>
+          </ul>
+          Given the current and previous poses, the function compute_control reconstructs the 
+          motion between two robot poses by calculating the parameters above. 
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/0986608af6f0f43f425a2d51af9cf936.js"></script>
+        <br>
+        <h2>Odometry motion model</h2>
+        <p>
+          Here we calculate the transition probability from the previous pose to the current pose, 
+          given the current/previous poses and the control inputs we used. Given the current/previous poses,
+          we can calculate the ideal set of motions the robot would've taken to get from one to the other.
+          We compare this against the actual set of motions the robot took, and determine how likely it was for 
+          the robot to end up where it is now.
+          We assume each movement is a Gaussian variable, and that the movements are independent from one another.
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/34e7d59f63d753b6110c0027eaf02c7e.js"></script> 
+        <br>
+
+        <h2>Prediction step</h2>
+        <p>
+          The prediction step of the Bayes Filter puts the above two steps togethe by calculating the transition probabilities 
+          between every grid cell. These transition probabilities are used to predict the robot's next state, bel_bar. To
+          save computation time, cells that have very low transition probabilities are ignored.
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/2de1adf79f7019e64c1f4478f969de75.js"></script> 
+        <br>
+
+        <h2>Sensor model</h2>
+        <p>
+          Each measurement is an independent Gaussian variable: given the robot's observations, 
+          we find the likelihood of each sensor measurement.
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/30b223cf3300a28514aa6899d19bbedb.js"></script> 
+        <br>
+
+        <h2>Update step</h2>
+        <p>
+          We incorporate measurement uncertainty into our beliefs and update loc.bel accordingly.
+        </p>
+      </div>
+
+      <br>
+
+      <div class="text-content">
+        <h1>Running the Bayes Filter</h1>
+        <br>
+        <div class="media-container">
+          <iframe 
+            src="https://www.youtube.com/embed/E6tCMR26v4I"
+            title="bayes" 
+            frameborder="0" 
+            allowfullscreen 
+            class="media-container">
+          </iframe>
+        </div>
+        <br>
+        <div class = "media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab10_img/run1_trajectory.jpg" class="media-container">
+            <figcaption> Run 1</figcaption>
+          </figure>
+          <figure class="media-container">
+            <img src="../assets/img/lab10_img/run2_trajectory.jpg" class="media-container">
+            <figcaption> Run 2</figcaption>
+          </figure>
+        </div>
+        <p>
+          The video shows my Bayes filter running. The raw odometry does a poor job of locating the 
+          robot and characterizing its motion. The Bayes filter, however, does a pretty good job of 
+          estimating where the robot is as it is not that far off from the ground truth. 
+        </p>
+
+        <br>
+        <p>
+          Here is some of the data I collected:
+        </p>
+
+        <script src="https://gist.github.com/ssy37/51606b486c922fcf94ee16abe5d5b785.js"></script>        
+        
+      </div>
+
+      
+  </main>
+
+  <footer id="footer" class="footer light-background">
+
+    <div class="container">
+      <div class="copyright text-center ">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">ssy37 Fast Robots</strong> <span>All Rights Reserved</span></p>
+      </div>
+      <div class="social-links d-flex justify-content-center">
+        <a href=""><i class="bi bi-linkedin"></i></a>
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="../assets/js/main.js"></script>
+
+</body>
+
+</html>
