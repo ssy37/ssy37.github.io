@@ -292,6 +292,8 @@ h6 {
   z-index: 998;
 }
 
+
+
 .navmenu a,
 .navmenu a:focus {
   color: var(--nav-dropdown-color);
@@ -348,6 +350,8 @@ h6 {
   margin: 10px 20px;
   box-shadow: none;
   transition: all 0.5s ease-in-out;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .navmenu .dropdown>.dropdown-active {
