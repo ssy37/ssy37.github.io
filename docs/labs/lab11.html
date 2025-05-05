@@ -180,12 +180,28 @@
         </div>
         <br>
         <p>
+          [4/30/25]
           The localization results are quite awful. The distances that were getting stored in `self.tofSide_dists` 
           matched what I expected. Also, the results of my print statements prove that my data is being sent over 
           properly. Other than that, there wasn't much room for implementation error, since the Bayes implementation 
           is provided. I ran out of time in lab, but I might try adjusting the sensor noise parameters to see if I can 
           get a better localization.
         </p>
+        <br>
+        <p>
+          [UPDATE 5/5/25] I found some of my own implementation bugs in Arduino. The measurements I was taking corresponded 
+          to the correct angles, but I didn't start taking measurements until my robot was at 20 degrees. After I fixed 
+          this issue, the localization improved slighty. I also added a delay statement to my code so that the robot could be fully 
+          stationary right before the measurement. I think the delay statement might be messing with the orientation control, 
+          my robot seems to overshoot and stop after 360 degrees. The picture below shows my updated localization. It's still 
+          bad but I'll focus on lab 12 first and maybe hit it later.
+        </p>
+        <div class="media-container">
+          <figure class="media-container">
+            <img src="../assets/img/lab11_img/localize_corner.jpg" class="media-container">
+            <figcaption>At least it found the corner?</figcaption>
+          </figure>
+        </div>>
         <br>
         <h3>Point (5,-3)</h3>
         <p>
