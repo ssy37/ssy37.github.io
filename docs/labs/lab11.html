@@ -192,8 +192,8 @@
           [UPDATE 5/5/25] I found some of my own implementation bugs in Arduino. The measurements I was taking corresponded 
           to the correct angles, but I didn't start taking measurements until my robot was at 20 degrees. After I fixed 
           this issue, the localization improved slighty. I also added a delay statement to my code so that the robot could be fully 
-          stationary right before the measurement. I think the delay statement might be messing with the orientation control, 
-          my robot seems to overshoot and stop after 360 degrees. The picture below shows my updated localization. It's still 
+          stationary right before the measurement. I think there is a delay between the yaw measurement and the TOF measurement, so 
+          the recorded yaw values are actually "lagging" behind the actual yaw. The picture below shows my updated localization. It's still 
           bad but I'll focus on lab 12 first and maybe hit it later.
         </p>
         <div class="media-container">
