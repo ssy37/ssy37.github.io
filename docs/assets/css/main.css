@@ -13,7 +13,7 @@
 /* Fonts */
 :root {
   --default-font: "Noto Sans",  system-ui, -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, "Inconsolata", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Noto Sans",  sans-serif;
+  --heading-font: "Roboto",  sans-serif;
   --nav-font: "Noto Sans",  sans-serif;
 }
 
