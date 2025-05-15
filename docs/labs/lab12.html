@@ -201,14 +201,27 @@
         <p>
           Similarly to the odometry model, I split up the robot’s trajectory into 3 parts including 2 rotations 
           and a translation. The robot will first rotate back to 0 degrees. Next, it will rotate to the angle 
-          between the current coordinate and the next coordinate. Then, it will travel in a straight line towards
-           the next point. I decided it wasn’t necessary to localize at every point; the robots will localize 
-           at (1,-1), (5,-3), and (0,3) because these are the points where I think are easiest for the robot to 
-           correct its drift. I used the Bayes filter code provided in previous labs as a base:
+          between the current coordinate and the next coordinate. Then, it will travel in a straight line towards 
+          the next point. I decided it wasn’t necessary to localize at every point; the robots will localize 
+          at (1,-1), (5,-3), and (0,3). At those points, the TOF sensors are close to walls so it's 
+          easier for the robot to correct its drift. I used the Bayes filter code provided in previous labs as a base:
         </p>
         <br>
         <script src="https://gist.github.com/ssy37/437f3bbe6ad1e921c92a5743b8307bf0.js"></script>
         <br>
+        <p>
+          This time, instead of hard-coding which TOF sensor to use, I implemented a function `decide_TOF` that 
+          compares the standard deviation of 20 measurements from each sensor, and chooses the sensor that has 
+          the lower standard deviation. (This method was derived from Lab 3 results; measurement data has high stdev if 
+          the sensor is measuring out of range.)
+        </p>
+        <br>
+        <script src="https://gist.github.com/ssy37/785879003b9e8a4900806e7986ff620a.js"></script>
+        <br>
+        <p>
+          Unfortunately my flight was booked for 5/13 and I spent the entire day travelling. I think I would need to 
+          take a closer look at the Python code and modify some of the Lab 11 base code in order for it to run properly.
+        </p>
         
       </div>
 
@@ -216,7 +229,9 @@
         <h1>Discussion and Acknowledgements</h1>
         <h2>Discussion</h2>
         <p>
-          It was unfortunate that I couldn't get this lab done in time.
+          It was unfortunate that I couldn't get this lab done in time. I really enjoyed this course and learned 
+          a lot from it; maybe taking it in tandem with heavy extracurriculars and other heinous classes wasn't 
+          the best time management decision on my part.
         </p>
         <h2>Acknowledgements</h2>
         <p>
