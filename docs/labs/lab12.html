@@ -102,62 +102,69 @@
       </div>
 
       <div class="text-content">
+        <h1>Fixing some old problems...</h1>
+        <p>
+          I used Kelvin's robot for labs 8-11. During ECE Robotics Day I revived my robot, but realized that 
+          it only worked if I commented out all TOF sensor code. Also, when I used Kelvin's robot 
+          my front and side TOF sensors were always flipped. I suspected the two issues were related; turns out I pulled 
+          the XSHUT low when it was supposed to be high, and changed the I2C address of the wrong sensor. I fixed the
+          boot-up sequence and my robot now works as expected.
+        </p>
+        <br>
         <h1>Implementation</h1>
         <h2>Overview</h2>
         <p>
-          I first tested the localization on the virtual robots in simulation. The result is shown below:
+          I’ll be relying heavily on my linear and orientation PID controllers, which have been working well so 
+          far. The linear control relies heavily on accurate time-of-flight (TOF) data. I took inspiration from 
+          Bhadra Bejoy’s report from 2023; Bhadra’s robot only moved in 90-degree increments so that a TOF sensor 
+          was always facing a wall directly. This strategy helps maintain accurate readings, as TOF sensors 
+          perform best when measuring distance to flat surfaces head-on.
         </p>
         <br>
+        <p>
+          From Lab 3, I know the TOF sensors have a limited range of about 1.5 meters, which is less than the 
+          lab’s dimensions. To ensure accurate readings, I moved the side TOF sensor to the back of the robot 
+          and now track distance traveled instead of distance remaining. This lets me use either the front or 
+          back sensor based on which is closer to the wall.
+        </p>
+        <br>
+        <h2>Hard-coding trajectories</h2>
+        <p>
+          To test and tune the robot’s PID control, I hard-coded the trajectories between waypoints and sent 
+          them to the robot as orientation and position control commands.
+        </p>
         <div class="media-container">
-          <img class="media-container" src="../assets/img/lab11_img/lab11_sim.jpg">
+          <figure class="media-container">
+            <img src="../assets/img/lab12_img/hard_code_python.jpg" class="media-container">
+            <figcaption>I use the asyncio module to wait for the robot to finish its actions 
+              before Python code continues executing.</figcaption>
+          </figure>
         </div>
         <br>
         <p>
-          The odometry, shown in red, is quite terrible. However, the localization closely follows the ground truth as 
-          expected.
-        </p>
-        <h2>Implementing `perform_observation_loop()` in Python</h2>
-        <p>
-          To localize, the robot needs to perform an observation loop by slowly spinning 360 degrees and taking
-           18 evenly spaced distance measurements. To implement this, I changed my Arduino code slightly from lab 9.
+          In Arduino, I use pointers to reference the front and back TOF sensor objects, making it easy to 
+          switch between them as needed. The SET_DIST command gives the robot its trajectory and tells it which 
+          TOF sensor to use. The function get_TOF() will store distance data from the chosen sensor in `dist`, 
+          which is used for linear PID computations. 
         </p>
         <br>
-        <p>
-          I first updated my get_TOF() function so that the robot will wait until sensor data is ready before moving to its 
-          next position.
-        </p>
+        <script src="https://gist.github.com/ssy37/1b5339faf72d23ce07d329818e26f4a5.js"></script>
         <br>
-        <script src="https://gist.github.com/ssy37/7bffebdaeff1af9fbe5937eba6f44c95.js"></script>
+        <script src="https://gist.github.com/ssy37/f91c6d3717d73354ccf429fef2973fcd.js"></script> 
+        <br>
+        <p>My main control loop is shown below:</p>
+        <script src="https://gist.github.com/ssy37/b2386c7e64694ac2e4a31f5cebd4afbd.js"></script>
         <br>
         <p>
-          I then updated my main loop so that my control flag turns off after 18 measurements are made. I also decided 
-          to move the data transmission code to my main loop so I can avoid sending another command in Python.
+          My robot made it through three waypoints before it went off-course. At the third waypoint, the robot 
+          does an unexpected -270 degree turn before starting its 90 degree clockwise turn. The robot proceeds 
+          to execute the remaining trajectories in the wrong direction. I suspect I didn't reset the IMU’s DMP  
+          properly.
         </p>
         <br>
-        <script src="https://gist.github.com/ssy37/c6fe07d06bbb57d9a00d6e528dfeee0a.js"></script>
-        <br>
-        <p>
-          I implemented the `perform_observation_loop` function like so:
-        </p>
-        <br>
-        <script src="https://gist.github.com/ssy37/0c756ca004bc67902affe237021896f5.js"></script>
-        <br>
-
-        <h2>Localization results</h2>
-        <p>
-          I unfortunately only tested my localization on points (-3,-2) and (5,-3). 
-          For all previous labs, I recorded distance measurements in inches; however, for this lab, the 
-          distances needed to be in meters. I unforunately didn't realize my units were off until after I 
-          lost several hours to debugging this trivial issue.
-        </p>
-        <br>
-        <h3>Point (-3,-2)</h3>
-        <p>
-          Below is a video of my robot performing the observation loop:
-        </p>
         <div class="media-container">
           <iframe 
-            src="https://www.youtube.com/embed/rJFiwupBG9k"
+            src="https://www.youtube.com/embed/Fx9UlYLTT2M"
             title="loop" 
             frameborder="0" 
             allowfullscreen 
@@ -166,67 +173,50 @@
         </div>
         <br>
         <p>
-          Below are the results for this observation loop. I printed `self.tofSide_dists` to check that all the data was 
-          being sent over. I then printed `sensor_ranges` and `sensor_bearings` to check that the arrays 
-          were the right shape. The localization results are shown in the lines after that.
+          In terms of physically testing the robot, this was all I could get done before I left for summer.
         </p>
-        <script src="https://gist.github.com/ssy37/14f50d67c8cda94b0f14a897158fafd4.js"></script>
-        <br>
-        <div class = "media-container">
-          <figure class="media-container">
-            <img src="../assets/img/lab11_img/loc_n3_n2.png" class="media-container">
-            <figcaption>Localized point vs ground truth</figcaption>
-          </figure>
-        </div>
-        <br>
+        <h2>Localization</h2>
         <p>
-          [4/30/25]
-          The localization results are quite awful. The distances that were getting stored in `self.tofSide_dists` 
-          matched what I expected. Also, the results of my print statements prove that my data is being sent over 
-          properly. Other than that, there wasn't much room for implementation error, since the Bayes implementation 
-          is provided. I ran out of time in lab, but I might try adjusting the sensor noise parameters to see if I can 
-          get a better localization.
+          After fixing PID control, the next step would've been to use localization to correct the robot's 
+          trajectory if it goes off-course.
+        </p>
+        <br>
+        <h3>Fixing Lab 11</h3>
+        <p>
+          The localization results from lab 11 were terrible; after modifying the code it improved slightly but 
+          the robot overshoots by 20 degrees at the end of each observation loop. The polar plot of the recorded 
+          data indicates that the last measurement was taken at 360 degrees, which means that the yaw angle 
+          recorded doesn’t correspond to the yaw value at which the measurements are taken. I suspect this is 
+          because the yaw value is updated and stored in the get_IMU() function before both PID computations 
+          and TOF measurements are made.
         </p>
         <br>
         <p>
-          [UPDATE 5/5/25] I found some of my own implementation bugs in Arduino. The measurements I was taking corresponded 
-          to the correct angles, but I didn't start taking measurements until my robot was at 20 degrees. After I fixed 
-          this issue, the localization improved slighty. I also added a delay statement to my code so that the robot could be fully 
-          stationary right before the measurement. I think there is a delay between the yaw measurement and the TOF measurement, so 
-          the recorded yaw values are actually "lagging" behind the actual yaw. The picture below shows my updated localization. It's still 
-          bad but I'll focus on lab 12 first and maybe hit it later.
+          Here is my updated observation loop, which I have placed inside of the `ON_AXIS_TURN` case statement 
+          instead of void loop(): 
         </p>
-        <div class="media-container">
-          <figure class="media-container">
-            <img src="../assets/img/lab11_img/localize_corner.jpg" class="media-container">
-            <figcaption>At least it found the corner?</figcaption>
-          </figure>
-        </div>>
+        <script src="https://gist.github.com/ssy37/2f181bebfb86e20b99bee150a7eafc51.js"></script>
         <br>
-        <h3>Point (5,-3)</h3>
+        <h3>Localization</h3>
         <p>
-          Below are the results from an observation loop. Again, the localization results are awful. I don't think it's 
-          a unit conversion or data transmission issue, I might just need to adjust the sensor noise.
+          Similarly to the odometry model, I split up the robot’s trajectory into 3 parts including 2 rotations 
+          and a translation. The robot will first rotate back to 0 degrees. Next, it will rotate to the angle 
+          between the current coordinate and the next coordinate. Then, it will travel in a straight line towards
+           the next point. I decided it wasn’t necessary to localize at every point; the robots will localize 
+           at (1,-1), (5,-3), and (0,3) because these are the points where I think are easiest for the robot to 
+           correct its drift. I used the Bayes filter code provided in previous labs as a base:
         </p>
         <br>
-        <script src="https://gist.github.com/ssy37/d7eb2b1fb60781abfa3f9915f4397482.js"></script>
+        <script src="https://gist.github.com/ssy37/437f3bbe6ad1e921c92a5743b8307bf0.js"></script>
         <br>
-        <div class = "media-container">
-          <figure class="media-container">
-            <img src="../assets/img/lab11_img/loc_5_n3.png" class="media-container">
-            <figcaption>Localized point vs ground truth</figcaption>
-          </figure>
-        </div>
-        <br>
+        
       </div>
 
       <div class="text-content">
         <h1>Discussion and Acknowledgements</h1>
         <h2>Discussion</h2>
         <p>
-          It was unfortunate that I lost so many hours to troubleshooting a trivial unit conversion issue. The 
-          time used for that would've been enough for me to try to localize the other points and maybe even adjust 
-          the sensor noise. I'll probably give it another shot during Wednesday lab.
+          It was unfortunate that I couldn't get this lab done in time.
         </p>
         <h2>Acknowledgements</h2>
         <p>
